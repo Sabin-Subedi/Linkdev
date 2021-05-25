@@ -1,0 +1,59 @@
+$bg_primary: #0B0E11;
+$bg_secondary: #151A21;
+$bg_tertiary: #242C37;
+
+$color_primary: #DEE3EA;
+$color_secondary: #696969;
+
+$green_primary: #1EFA67;
+$green_secondary: #32C964;
+$green_tertiary: #29BB89;
+
+$blue_primary: #0061A8;
+$blue_secondary: #5D7290;
+
+
+$enable-responsive-font-sizes: true;
+
+$body-bg: $bg_primary;
+$body-color: $color_primary;
+
+
+$dropdown-bg:                       $bg_primary;
+
+
+$dropdown-link-color:               $color_primary;
+$dropdown-link-hover-color:         darken($color_primary, 5%);
+$dropdown-link-hover-bg:            $bg_tertiary;
+$dropdown-link-active-bg:            $bg_tertiary;
+$dropdown-link-active-color:         darken($color_primary, 5%);
+
+
+// Cards
+
+$card-bg:                           $bg_secondary !default;
+$list-group-bg:                      transparent;
+$modal-content-bg:                  $bg_secondary !default;
+
+
+
+
+$theme-colors: (
+  "primary": $green_primary,
+  "body_primary": $bg_primary,
+  "body_secondary": $bg_secondary,
+  "body_tertiary": $bg_tertiary,
+  "color_primary": $color_primary,
+  "color_secondary": $color_secondary,
+  "green_secondary": $green_secondary,
+  "green_tertiary": $green_tertiary,
+  "blue_primary": $blue_primary,
+  "blue_secondary": $blue_secondary,
+
+);
+
+
+
+
+
+@import "../../node_modules/bootstrap/scss/bootstrap";

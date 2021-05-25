@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap');
+
+body {
+  margin: 0;
+  font-family: 'Roboto', 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  background-color: black ;
+}
+
+.login_mainContent{
+  min-height: 90vh
+}
+
+.text_desc { 
+  font-size: 1.6rem;
+}
+
+.icon {
+  font-size: 1.4rem;
+}
+
+.footer {
+  min-height: 10vh;
+}
+
+.text-4{
+  font-size: 2rem !important;
+}
+.text-3{
+  font-size: 1.5rem !important;
+}
+
+.text-2{
+  font-size: 1.2rem !important;
+}
+
+.text-1{
+  font-size: 1rem !important;
+}
+
+.text-0 {
+  font-size: 0.8rem !important;
+}
+
+
+.form-label{
+  font-size: 1rem;
+}
+
+input[type=date].form-control
+ {
+ text-transform: uppercase;
+}
+
+
+
+
+.post_button, .cursor{
+  cursor: pointer ;
+}
+
+.btn_post_create{
+  background-color: #242C37 !important;
+  font-size: 1.1rem !important;
+  color: #cfd1d4 !important;
+  transition: all ease 0.4s;
+}
+
+.btn_post_create:hover{
+  background-color: #7b7c7e7a !important;
+  border-color: #7b7c7e7a !important;
+
+}
+
+.modal-header .close{
+  color: #cfd1d4 !important;
+  text-shadow: none !important;
+  font-size: 2rem;
+  background-color: #242C37 ;
+
+
+}
+
+.create_input:focus{
+  border: none !important;
+  box-shadow: none !important;
+  color: #cfd1d4 !important;
+}
+
+.emoji-mart-scroll{
+  height: 10.5rem !important;
+}
+
+.main_content,.profile_body{
+  min-height: 79vh;
+}
+
+
