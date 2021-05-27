@@ -50,14 +50,12 @@ const LoginScreen = ({ location, history }) => {
             {/* {loading && <Loader />} */}
             <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
-                <Form.Label className='form_label'>
-                  Username or Email
-                </Form.Label>
+                <Form.Label className='form_label'>Email Adress</Form.Label>
                 <Form.Control
                   className='bg-body_tertiary border-0 text-blue_secondary'
                   size='lg'
-                  type='text'
-                  placeholder='Enter Username or Email'
+                  type='email'
+                  placeholder='Enter Your Email Address'
                   value={email}
                   required
                   onChange={(e) => setEmail(e.target.value)}
