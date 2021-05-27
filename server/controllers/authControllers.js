@@ -182,12 +182,12 @@ export const verifyUser = async (req, res) => {
       user.save()
 
       return res.redirect(
-        'https://naughty-shockley-2ab058.netlify.app/verified?verified'
+        'https://linkdev-sabin.herokuapp.com/verified?verified'
       )
     }
 
     return res.redirect(
-      `https://naughty-shockley-2ab058.netlify.app/verified?notverified`
+      `https://linkdev-sabin.herokuapp.com/verified?notverified`
     )
   } catch (err) {
     res.status(400).json({ message: err.message, stack: err.stack })
