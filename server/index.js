@@ -6,6 +6,7 @@ import postRoutes from './routes/postRoutes.js'
 import profileRoutes from './routes/profileRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import path from 'path'
+import cors from 'cors'
 
 dotenv.config()
 
@@ -13,6 +14,8 @@ dotenv.config()
 connectDB()
 
 const app = express()
+
+app.use(cors())
 
 app.use(express.json())
 
