@@ -181,10 +181,14 @@ export const verifyUser = async (req, res) => {
 
       user.save()
 
-      return res.redirect('http://localhost:3000/verified?verified')
+      return res.redirect(
+        'https://linkdev-sabin.herokuapp.com/verified?verified'
+      )
     }
 
-    return res.redirect(`http://localhost:3000/verified?notverified`)
+    return res.redirect(
+      `https://linkdev-sabin.herokuapp.com/verified?notverified`
+    )
   } catch (err) {
     res.status(400).json({ message: err.message, stack: err.stack })
   }
