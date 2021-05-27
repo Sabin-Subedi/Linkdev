@@ -23,7 +23,7 @@ export const login = (email, password) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      '/v1/auth/login',
+      'https://linkdev-sabin.herokuapp.com/v1/auth/login',
       { email, password },
       config
     )
@@ -56,7 +56,7 @@ export const register = (email, password, name, date) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      '/v1/auth/register',
+      'https://linkdev-sabin.herokuapp.com/v1/auth/register',
       { email, password, date, name },
       config
     )
@@ -98,7 +98,10 @@ export const getEmail = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get('/v1/auth/verifyEmail', config)
+    const { data } = await axios.get(
+      'https://linkdev-sabin.herokuapp.com/v1/auth/verifyEmail',
+      config
+    )
 
     dispatch({
       type: USER_VERIFY_SUCCESS,

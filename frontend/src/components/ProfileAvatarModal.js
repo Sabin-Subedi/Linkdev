@@ -37,7 +37,11 @@ function ProfileAvatarModal(props) {
         },
       }
 
-      const { data } = await axios.post('/v1/upload', formData, config)
+      const { data } = await axios.post(
+        'https://linkdev-sabin.herokuapp.com/v1/upload',
+        formData,
+        config
+      )
 
       setAvatar(data)
     } catch (error) {

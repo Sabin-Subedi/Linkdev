@@ -25,7 +25,10 @@ export const getProfileDetail = (userId) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(`/v1/profile/${userId}`, config)
+    const { data } = await axios.get(
+      `https://linkdev-sabin.herokuapp.com/v1/profile/${userId}`,
+      config
+    )
 
     dispatch({ type: PROFILE_SUCCESS, payload: data })
   } catch (error) {
@@ -57,7 +60,7 @@ export const updateProfile =
       }
 
       const { data } = await axios.put(
-        `/v1/profile`,
+        `https://linkdev-sabin.herokuapp.com/v1/profile`,
         { bio, facebook, twitter, linkedin, github, website, location },
         config
       )
@@ -89,7 +92,11 @@ export const updateProfileAvatar = (avatar) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.put(`/v1/profile/avatar`, { avatar }, config)
+    const { data } = await axios.put(
+      `https://linkdev-sabin.herokuapp.com/v1/profile/avatar`,
+      { avatar },
+      config
+    )
 
     dispatch({
       type: UPDATE_PROFILE_AVATAR_SUCCESS,
