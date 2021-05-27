@@ -156,12 +156,12 @@ function Profile(props) {
             className='mt-2 '
             block
             disabled={
-              !bio ||
-              !location ||
-              !facebook ||
-              !twitter ||
-              !github ||
-              !website ||
+              !bio &&
+              !location &&
+              !facebook &&
+              !twitter &&
+              !github &&
+              !website &&
               !linkedin
             }
           >
