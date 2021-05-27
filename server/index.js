@@ -3,6 +3,7 @@ import connectDB from './config/db.js'
 import dotenv from 'dotenv'
 import authRoutes from './routes/authRoutes.js'
 import postRoutes from './routes/postRoutes.js'
+import profileRoutes from './routes/profileRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import path from 'path'
 
@@ -13,20 +14,26 @@ connectDB()
 
 const app = express()
 
-// app.use(cors('*'))
-
 app.use(express.json())
-
-app.get('/', (req, res) => {
-  res.json({ message: 'Server Runnning' })
-})
 
 app.use('/v1/auth/', authRoutes)
 app.use('/v1/', postRoutes)
+app.use('/v1/', profileRoutes)
 app.use('/v1/upload', uploadRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '/frontend/build')))
+  app.get('*', (req, res) =>
+    res.sendFile([ath.resolve(__dirname, 'frontend', 'build', 'index.html')])
+  )
+} else {
+  app.get('/', (req, res) => {
+    res.send('Server is running.......')
+  })
+}
 
 const PORT = process.env.PORT
 

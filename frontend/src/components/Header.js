@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Container, Image, Nav, Navbar, NavDropdown } from 'react-bootstrap'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { logout } from '../actions/authActions'
 
 const Header = ({ history, user }) => {
   const dispatch = useDispatch()
+
+  const userAvatar = useSelector((state) => state.userAvatar)
+  const { avatar: avy } = userAvatar
+
+  const [avatar, setAvatar] = useState(user && user.avatar)
+
+  useEffect(() => {
+    if (JSON.stringify(avy) !== '{}') {
+      setAvatar(avy)
+    }
+  }, [avy])
 
   const logoutHandler = () => {
     dispatch(logout())
@@ -43,9 +54,9 @@ const Header = ({ history, user }) => {
               </Nav.Link>
             </LinkContainer>
             <LinkContainer to={`/profile/${user && user.id}`}>
-              <Nav.Link className='d-flex text-1 align-items-center text-color_secondary'>
+              <Nav.Link className='d-flex text-1 align-items-center text-color_secondary capital'>
                 <Image
-                  src={user && user.avatar}
+                  src={avatar}
                   className='mx-2 '
                   fluid
                   roundedCircle

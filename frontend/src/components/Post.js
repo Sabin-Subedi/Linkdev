@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import {
+  Alert,
   Button,
   Card,
   Col,
@@ -8,34 +9,68 @@ import {
   InputGroup,
   ListGroup,
   Row,
+  Spinner,
 } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
-
 import { useDispatch, useSelector } from 'react-redux'
-import { likePost } from '../actions/postActions'
+import { commentPost, likePost } from '../actions/postActions'
 
 import DateFormat from './Date'
+import moment from 'moment'
+import { Link } from 'react-router-dom'
 
-const Post = ({ post }) => {
+const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
   const dispatch = useDispatch()
+
+  const commentInput = useRef(null)
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
-  const alreadyLiked = post.likes.find(
-    (r) => r.user.toString() === userInfo.id.toString()
+  const commentStatus = useSelector((state) => state.commentStatus)
+
+  const alreadyLiked = post.likes.find((r) =>
+    r.user ? r.user.toString() === userInfo.id.toString() : ''
   )
 
-  const [comment, setComment] = useState()
+  const [comment, setComment] = useState('')
   const [like, setLike] = useState(post.likes.includes(alreadyLiked))
 
-  const [likeCount, setLikeCount] = useState(false)
+  const [likeCount, setLikeCount] = useState(post.likes.length)
+  const [commentCount, setCommentCount] = useState(
+    post && post.comments && post.comments.length
+  )
+
+  const userAvatar = useSelector((state) => state.userAvatar)
+  const { avatar: avy } = userAvatar
+
+  const [avatar, setAvatar] = useState(userInfo && userInfo.avatar)
+
+  useEffect(() => {
+    if (JSON.stringify(avy) !== '{}') {
+      setAvatar(avy)
+    }
+  }, [avy])
+
+  const commentButtonHandler = () => {
+    commentInput.current.focus()
+  }
 
   const likeHandler = () => {
     setLike(!like)
-    setLikeCount(!likeCount)
-
+    // setLikeCount(!likeCount)
+    if (!like) {
+      setLikeCount(likeCount + 1)
+    } else {
+      setLikeCount(likeCount - 1)
+    }
     dispatch(likePost(post._id))
+  }
+
+  const commentHandler = () => {
+    dispatch(commentPost(comment, post._id))
+    setCommentCount(commentCount + 1)
+    setComment('')
   }
 
   return (
@@ -52,7 +87,9 @@ const Post = ({ post }) => {
                   roundedCircle
                 />
                 <div className='ml-3'>
-                  <h6 className='text-2 text-primary mb-0'>{post.name}</h6>
+                  <h6 className='text-2 text-primary mb-0 capital'>
+                    {post.name}
+                  </h6>
                   <DateFormat>{post.date}</DateFormat>
                 </div>
               </Col>
@@ -77,10 +114,10 @@ const Post = ({ post }) => {
               <Row className='align-items-center justify-content-between'>
                 <Col className='text-left'>
                   <i className='fas fa-thumbs-up text-primary mr-2'></i>
-                  <span>{post.likes.length} Likes</span>
+                  <span>{likeCount} Likes</span>
                 </Col>
                 <Col className='text-right'>
-                  <span>{post.comments.length} Comments</span>
+                  <span>{commentCount} Comments</span>
                   <i className='fas fa-comment-alt text-primary ml-2'></i>
                 </Col>
               </Row>
@@ -90,8 +127,8 @@ const Post = ({ post }) => {
                 <Col className='text-left font-weight-light post_button'>
                   <span
                     className={`${
-                      like ? 'text-primary' : 'text-color_primary'
-                    }`}
+                      like ? 'text-primary' : 'text-color_primary hover '
+                    } `}
                     onClick={likeHandler}
                   >
                     <i
@@ -103,39 +140,192 @@ const Post = ({ post }) => {
                   </span>
                 </Col>
                 <Col className='text-center font-weight-light post_button'>
-                  <i className='fal fa-comment-alt icon  mr-2'></i>
-                  <span className='text-2'>Comment</span>
+                  <span className='hover' onClick={commentButtonHandler}>
+                    <i className='fal fa-comment-alt icon  mr-2'></i>
+                    <span className='text-2'>Comment</span>
+                  </span>
                 </Col>
                 <Col className='text-right font-weight-light post_button'>
-                  <i className='fal fa-share icon  mr-2'></i>
-                  <span className='text-2'>Share</span>
+                  <span className='hover'>
+                    <i className='fal fa-share icon  mr-2'></i>
+                    <span className='text-2'>Share</span>
+                  </span>
                 </Col>
               </Row>
             </ListGroup.Item>
-            <ListGroup.Item>
-              <Row className='align-items-center '>
+
+            <ListGroup.Item className='text-center'>
+              {postComment &&
+                postComment.map((comment) => (
+                  <Row className={`align-items-center mb-2`}>
+                    <Col
+                      md={12}
+                      className='px-0 text-left d-flex align-items-center'
+                    >
+                      <Image
+                        className=' mr-2'
+                        src={comment.avatar}
+                        style={{ width: '8%' }}
+                        fluid='true'
+                        roundedCircle
+                      />
+                      <div className='bg-body_tertiary p-2 px-4 rounded-pill d-flex flex-column  justify-content-center'>
+                        <h6
+                          className='mb-0 text-1 d-flex align-items-center'
+                          style={{ textTransform: 'capitalize' }}
+                        >
+                          {comment.name} &nbsp;
+                          <span className='text-0 text-secodary font-weight-light my-auto'>
+                            -&nbsp;
+                            {moment(comment && comment.commentdate).format(
+                              'Do MMMM,h:mm a'
+                            )}
+                          </span>
+                        </h6>
+                        <p className='mb-0 text-1'>{comment.commentText}</p>
+                      </div>
+                    </Col>
+                  </Row>
+                ))}
+
+              {!postScreen && comment1 && (
+                <Row className='align-items-center mb-2'>
+                  <Col
+                    md={12}
+                    className='px-0 text-left d-flex align-items-center'
+                  >
+                    <Image
+                      className=' mr-2'
+                      src={comment1 && comment1.avatar}
+                      style={{ width: '10%' }}
+                      fluid='true'
+                      roundedCircle
+                    />
+                    <div className='bg-body_tertiary p-2 px-4 rounded-pill d-flex flex-column  justify-content-center'>
+                      <h6
+                        className='mb-0 text-1 d-flex align-items-center'
+                        style={{ textTransform: 'capitalize' }}
+                      >
+                        {comment1 && comment1.name} &nbsp;
+                        <span className='text-0 text-secodary font-weight-light my-auto'>
+                          -&nbsp;
+                          {moment(comment1 && comment1.commentdate).format(
+                            'Do MMMM,h:mm a'
+                          )}
+                        </span>
+                      </h6>
+                      <p className='mb-0 text-1'>
+                        {comment1 && comment1.commentText}
+                      </p>
+                    </div>
+                  </Col>
+                </Row>
+              )}
+
+              {!postScreen && comment2 && (
+                <Row
+                  className={`align-items-center ${
+                    commentCount > 2 ? 'mb-2' : 'mb-3'
+                  }`}
+                >
+                  <Col
+                    md={12}
+                    className='px-0 text-left d-flex align-items-center'
+                  >
+                    <Image
+                      className=' mr-2'
+                      src={comment2 && comment2.avatar}
+                      style={{ width: '10%' }}
+                      fluid='true'
+                      roundedCircle
+                    />
+                    <div className='bg-body_tertiary p-2 px-4 rounded-pill d-flex flex-column  justify-content-center'>
+                      <h6
+                        className='mb-0 text-1 d-flex align-items-center'
+                        style={{ textTransform: 'capitalize' }}
+                      >
+                        {comment2 && comment2.name} &nbsp;
+                        <span className='text-0 text-secodary font-weight-light my-auto'>
+                          -&nbsp;
+                          {moment(comment2 && comment2.commentdate).format(
+                            'Do MMMM,h:mm a'
+                          )}
+                        </span>
+                      </h6>
+                      <p className='mb-0 text-1'>
+                        {comment2 && comment2.commentText}
+                      </p>
+                    </div>
+                  </Col>
+                </Row>
+              )}
+
+              {!postScreen && commentCount > 2 && (
+                <Link to={`/post/${post._id}`}>
+                  <span className='mx-auto text-1 font-weight-light'>
+                    View More Comments
+                  </span>
+                </Link>
+              )}
+              {!postScreen && commentStatus && commentStatus.success && (
+                <Alert className='rounded-pill my-2 mb-3' variant='success'>
+                  You Succesfully commented to the post.{' '}
+                  <Link className='text-blue_primary' to={`/post/${post._id}`}>
+                    View Your Comment
+                  </Link>
+                </Alert>
+              )}
+              {commentStatus && commentStatus.loading ? (
+                <div className='d-flex align-items-center justify-content-center my-2 text-2'>
+                  <span className='mr-2'>Posting...</span>
+                  <Spinner
+                    as='span'
+                    variant='primary'
+                    animation='border'
+                    role='status'
+                    aria-hidden='true'
+                  />
+                </div>
+              ) : (
+                ''
+              )}
+              {commentStatus && commentStatus.error && (
+                <Alert className='rounded-pill my-2 mb-3' variant='danger'>
+                  {commentStatus.error}
+                </Alert>
+              )}
+              <Row className='align-items-center mt-2'>
                 <Col md={10} className='px-0 d-flex'>
                   <Image
                     className=' mr-2'
-                    src={userInfo && userInfo.avatar}
+                    src={avatar}
                     style={{ width: '10%' }}
                     fluid='true'
                     roundedCircle
                   />
                   <InputGroup style={{ width: '90%' }}>
                     <FormControl
+                      ref={commentInput}
                       className='bg-body_tertiary border-0 text-blue_secondary rounded-pill'
                       type='text'
                       placeholder='Write a comment'
                       value={comment}
+                      size='lg'
                       required
                       onChange={(e) => setComment(e.target.value)}
                     ></FormControl>
                   </InputGroup>
                 </Col>
-                <Col md={2}>
-                  <Button variant='primary rounded-pill px-4' size='small'>
-                    Post
+                <Col md={2} className='px-1'>
+                  <Button
+                    onClick={commentHandler}
+                    variant='primary rounded-pill px-4'
+                    size='small'
+                    disabled={!comment}
+                  >
+                    {commentStatus && commentStatus.loading
+                      ? 'Posting'
+                      : 'Post'}
                   </Button>
                 </Col>
               </Row>

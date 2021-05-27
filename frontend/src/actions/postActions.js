@@ -1,5 +1,11 @@
 import axios from 'axios'
 import {
+  POST_BY_ID_FAIL,
+  POST_BY_ID_REQUEST,
+  POST_BY_ID_SUCCESS,
+  POST_COMMENT_FAIL,
+  POST_COMMENT_REQUEST,
+  POST_COMMENT_SUCCESS,
   POST_CREATE_FAIL,
   POST_CREATE_REQUEST,
   POST_CREATE_SUCCESS,
@@ -157,6 +163,81 @@ export const getUserPosts = (userId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: USER_POST_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const commentPost = (text, postId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: POST_COMMENT_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+      postById,
+      postList,
+    } = getState()
+
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+        authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.put(
+      `/v1/post/comment/${postId}`,
+      { text },
+      config
+    )
+
+    postList.posts &&
+      postList.posts
+        .find((post) => post._id === postId)
+        .comments.push(data.newComment)
+
+    postById && postById.post && postById.post.comments.push(data.newComment)
+
+    dispatch({
+      type: POST_COMMENT_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: POST_COMMENT_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+export const getPostById = (postId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: POST_BY_ID_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const config = {
+      headers: {
+        authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    const { data } = await axios.get(`/v1/post/${postId}`, config)
+
+    dispatch({
+      type: POST_BY_ID_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: POST_BY_ID_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message

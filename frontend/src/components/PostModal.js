@@ -5,6 +5,7 @@ import { Picker } from 'emoji-mart'
 import 'emoji-mart/css/emoji-mart.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../actions/postActions'
+import { LinkContainer } from 'react-router-bootstrap'
 
 function PostModal(props) {
   const dispatch = useDispatch()
@@ -80,30 +81,39 @@ function PostModal(props) {
       </Modal.Header>
       <Modal.Body>
         <Row className='align-items-center justify-content-between'>
-          <Col className='d-flex align-items-center'>
-            <Image
-              src={userInfo && userInfo.avatar}
-              style={{ width: '50px', height: '50px' }}
-              fluid='true'
-              roundedCircle
-            />
-            <div className='ml-3'>
-              <h6 className='text-2 text-primary mb-0'>
-                {userInfo && userInfo.name}
-              </h6>
-              <Badge variant='blue_primary'>User</Badge>
-            </div>
+          <Col className=''>
+            <LinkContainer to={`/profile/${userInfo && userInfo.id}`}>
+              <div className='d-inline-flex align-items-center cursor capital '>
+                <Image
+                  src={userInfo && userInfo.avatar}
+                  style={{ width: '50px', height: '50px' }}
+                  fluid='true'
+                  roundedCircle
+                />
+
+                <div className='ml-3'>
+                  <h6 className='text-2 text-primary mb-0'>
+                    {userInfo && userInfo.name}
+                  </h6>
+                  <Badge variant='blue_primary'>
+                    {userInfo && userInfo.isVerified ? 'Creator' : 'Viewer'}
+                  </Badge>
+                </div>
+              </div>
+            </LinkContainer>
           </Col>
         </Row>
 
         <Form onSubmit={submitHandler} className='mt-2'>
           <Form.Group className='text'>
             <Form.Control
-              className='create_input bg-body_secondary border-0 text-blue_secondary'
+              className='create_input bg-body_secondary border-0 text-blue_secondary form_create'
               as='textarea'
               row={50}
               size='lg'
-              placeholder={`What's on your mind, ${userInfo && userInfo.name}`}
+              placeholder={`What's on your mind, ${
+                userInfo && userInfo.name
+              } ?`}
               value={text}
               onChange={(e) => setText(e.target.value)}
             ></Form.Control>
@@ -125,7 +135,7 @@ function PostModal(props) {
               <div className='emoji_picker ml-auto  postion-relative'>
                 <i
                   onClick={emojiOpener}
-                  className='text-primary icon fal fa-smile-beam'
+                  className='text-primary icon fal fa-smile-beam cursor'
                 ></i>
                 <Picker
                   set='google'

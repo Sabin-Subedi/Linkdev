@@ -3,6 +3,13 @@ import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import { userLoginReducer, verifyEmailReducer } from './reducers/authReducers'
 import {
+  userAvatarReducer,
+  userProfileReducer,
+} from './reducers/profileReducers'
+
+import {
+  commentStatusReducer,
+  postByIdReducer,
   postCreateReducer,
   postListReducer,
   userPostListReducer,
@@ -14,6 +21,10 @@ const reducer = combineReducers({
   postCreate: postCreateReducer,
   verifyEmail: verifyEmailReducer,
   userPostList: userPostListReducer,
+  userProfile: userProfileReducer,
+  userAvatar: userAvatarReducer,
+  commentStatus: commentStatusReducer,
+  postById: postByIdReducer,
 })
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')

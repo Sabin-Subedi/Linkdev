@@ -51,12 +51,16 @@ body {
   font-size: 1rem;
 }
 
-input[type=date].form-control
+input[type=date].form-control,.name
  {
  text-transform: uppercase;
 }
 
 
+
+.capital,.form_create::placeholder{
+  text-transform: capitalize;
+}
 
 
 .post_button, .cursor{
@@ -100,3 +104,6 @@ input[type=date].form-control
 }
 
 
+.hover:hover{
+  color: #1EFA67 !important;
+}

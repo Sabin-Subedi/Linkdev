@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { logout } from '../actions/authActions'
 import Footer from '../components/Footer'
+import Meta from '../components/Meta'
 
 const VerifyScreen = ({ location, history }) => {
   const dispatch = useDispatch()
@@ -22,6 +23,7 @@ const VerifyScreen = ({ location, history }) => {
 
   return (
     <>
+      <Meta title='Verify - Linkdev' />
       {query && query.toString() === '?verified' ? (
         <div
           className='d-flex align-items-center justify-content-center'

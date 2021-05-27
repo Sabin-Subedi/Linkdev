@@ -1,4 +1,10 @@
 import {
+  POST_BY_ID_FAIL,
+  POST_BY_ID_REQUEST,
+  POST_BY_ID_SUCCESS,
+  POST_COMMENT_FAIL,
+  POST_COMMENT_REQUEST,
+  POST_COMMENT_SUCCESS,
   POST_CREATE_FAIL,
   POST_CREATE_REQUEST,
   POST_CREATE_SUCCESS,
@@ -12,6 +18,7 @@ import {
   USER_POST_LIST_REQUEST,
   USER_POST_LIST_SUCCESS,
 } from '../constants/postConstant'
+import { UPDATE_PROFILE_AVATAR_SUCCESS } from '../constants/profileConstants'
 
 export const postListReducer = (state = { posts: [] }, action) => {
   switch (action.type) {
@@ -56,6 +63,8 @@ export const userPostListReducer = (state = { posts: [] }, action) => {
         likeLoading: false,
         error: action.payload,
       }
+    case UPDATE_PROFILE_AVATAR_SUCCESS:
+      return { loading: false, posts: action.post }
     default:
       return state
   }
@@ -66,6 +75,32 @@ export const postCreateReducer = (state = {}, action) => {
     case POST_CREATE_REQUEST:
       return { loading: true }
     case POST_CREATE_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const commentStatusReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_COMMENT_REQUEST:
+      return { loading: true }
+    case POST_COMMENT_SUCCESS:
+      return { loading: false, success: true, status: action.payload }
+    case POST_COMMENT_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
+export const postByIdReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_BY_ID_REQUEST:
+      return { loading: true }
+    case POST_BY_ID_SUCCESS:
+      return { loading: false, post: action.payload }
+    case POST_BY_ID_FAIL:
       return { loading: false, error: action.payload }
     default:
       return state

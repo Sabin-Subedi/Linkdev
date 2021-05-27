@@ -28,6 +28,38 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    socialLinks: [
+      {
+        facebook: {
+          type: String,
+        },
+        github: {
+          type: String,
+        },
+        twitter: {
+          type: String,
+        },
+        instagram: {
+          type: String,
+        },
+        linkedin: {
+          type: String,
+        },
+      },
+    ],
+    website: {
+      type: String,
+    },
+    location: {
+      type: String,
+    },
+    skills: {
+      type: [String],
+      required: true,
+    },
+    bio: {
+      type: String,
+    },
   },
   {
     timestamps: true,

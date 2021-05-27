@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom'
 import { register } from '../actions/authActions'
 import Footer from '../components/Footer'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 const RegisterScreen = ({ history }) => {
   const [email, setEmail] = useState('')
@@ -26,8 +27,6 @@ const RegisterScreen = ({ history }) => {
 
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo, error } = userLogin
-
-  const [redirect, setRedirect] = useState('/')
 
   useEffect(() => {
     if (userInfo) {
@@ -49,6 +48,7 @@ const RegisterScreen = ({ history }) => {
 
   return (
     <>
+      <Meta title='Create Your Account' />
       <Container>
         <Row className='login_mainContent align-items-center justify-content-between'>
           <Col md={5}>

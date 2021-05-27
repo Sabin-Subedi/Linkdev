@@ -7,6 +7,7 @@ import VerifyScreen from './screens/VerifyScreen'
 import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
 import 'emoji-mart/css/emoji-mart.css'
 import ProfileScreen from './screens/ProfileScreen'
+import PostScreen from './screens/PostScreen'
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path='/forgotpassword' component={ForgotPasswordScreen} />
         <Route path='/profile/:id' component={ProfileScreen} />
         <Route path='/verify/:token' component={VerifyScreen} />
+        <Route path='/post/:id' component={PostScreen} />
         <Route path='/verified' component={VerifyScreen} />
         <Route path='/' component={HomeScreen} exact />
       </main>

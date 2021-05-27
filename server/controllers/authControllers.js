@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import User from '../models/userModels.js'
 import bcrypt from 'bcryptjs'
 import { sendEmail } from '../utils/email.js'
+import Profile from '../models/profileModels.js'
 
 // ! @route POST /v1/auth/login
 // ? @desc Login User
@@ -22,7 +23,7 @@ export const authUser = async (req, res) => {
           avatar: user.avatar,
           isVerified: user.isVerified,
           token: jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-            expiresIn: '1m',
+            expiresIn: '120',
           }),
         })
       } else {
@@ -57,6 +58,10 @@ export const registerUser = async (req, res) => {
     })
 
     if (newUser) {
+      await Profile.create({
+        user: newUser.id,
+      })
+
       res.status(201).json({
         id: newUser.id,
         name: newUser.name,

@@ -11,7 +11,7 @@ import {
   USER_VERIFY_SUCCESS,
 } from '../constants/authConstant'
 
-export const userLoginReducer = (state = {}, action) => {
+export const userLoginReducer = (state = { userInfo: {} }, action) => {
   switch (action.type) {
     case USER_LOGIN_REQUEST:
       return { loading: true }

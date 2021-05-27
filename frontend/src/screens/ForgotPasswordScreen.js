@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col, Container, Image } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { login } from '../actions/authActions'
+import { useSelector } from 'react-redux'
+// import { login } from '../actions/authActions'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import Footer from '../components/Footer'
-import Message from '../components/Message'
+// import Message from '../components/Message'
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('')
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const { userInfo } = userLogin
 
   useEffect(() => {
     if (userInfo) {
@@ -41,7 +41,7 @@ const LoginScreen = ({ location, history }) => {
             <p className='text-secondary text-1'>
               Enter your email address to request password change
             </p>
-            {error && <Message>{error}</Message>}
+            {/* {error && <Message>{error}</Message>} */}
             {/* {loading && <Loader />} */}
             <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>

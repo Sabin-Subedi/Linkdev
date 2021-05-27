@@ -9,6 +9,7 @@ import Message from '../components/Message'
 
 import PostCreater from '../components/PostCreater'
 import PostList from '../components/PostList'
+import Meta from '../components/Meta'
 
 const HomeScreen = ({ history, location }) => {
   const dispatch = useDispatch()
@@ -41,6 +42,7 @@ const HomeScreen = ({ history, location }) => {
 
   return (
     <div>
+      <Meta title='Home - Linkdev' />
       <Header history={history} user={userInfo} />
 
       <div className='main_content mt-4'>

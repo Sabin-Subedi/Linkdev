@@ -3,34 +3,30 @@ import mongoose from 'mongoose'
 const profileSchema = mongoose.Schema(
   {
     user: {
-      type: mongoose.SchemaType.ObjectId,
-      required: true,
+      type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    socialLinks: [
-      {
-        facebook: {
-          type: String,
-        },
-        github: {
-          type: String,
-        },
-        twitter: {
-          type: String,
-        },
-        instagram: {
-          type: String,
-        },
-        linkedin: {
-          type: String,
-        },
-      },
-    ],
+
+    facebook: {
+      type: String,
+    },
+    github: {
+      type: String,
+    },
+    twitter: {
+      type: String,
+    },
+    instagram: {
+      type: String,
+    },
+    linkedin: {
+      type: String,
+    },
+
     followers: [
       {
         user: {
-          type: mongoose.SchemaType.ObjectId,
-          required: true,
+          type: mongoose.Schema.Types.ObjectId,
           ref: 'User',
         },
       },
@@ -43,7 +39,6 @@ const profileSchema = mongoose.Schema(
     },
     skills: {
       type: [String],
-      required: true,
     },
     bio: {
       type: String,

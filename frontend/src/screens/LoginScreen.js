@@ -7,6 +7,7 @@ import { login } from '../actions/authActions'
 import { LinkContainer } from 'react-router-bootstrap'
 import Footer from '../components/Footer'
 import Message from '../components/Message'
+import Meta from '../components/Meta'
 
 const LoginScreen = ({ location, history }) => {
   const [email, setEmail] = useState('')
@@ -15,7 +16,7 @@ const LoginScreen = ({ location, history }) => {
   const dispatch = useDispatch()
 
   const userLogin = useSelector((state) => state.userLogin)
-  const { loading, error, userInfo } = userLogin
+  const { error, userInfo } = userLogin
 
   const redirect = location.search ? location.search.split('?')[1] : '/'
 
@@ -34,6 +35,7 @@ const LoginScreen = ({ location, history }) => {
 
   return (
     <>
+      <Meta title='Linkdev - Login' />
       <Container>
         <Row className='login_mainContent align-items-center justify-content-between'>
           <Col md={5}>

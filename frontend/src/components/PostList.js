@@ -15,7 +15,15 @@ const PostList = ({ history }) => {
   ) : loading ? (
     <Loader />
   ) : (
-    posts.map((post) => <Post key={post._id} post={post} />)
+    posts.map((post) => (
+      <Post
+        key={post._id}
+        post={post}
+        home={true}
+        comment1={post.comments[post.comments.length - 2]}
+        comment2={post.comments[post.comments.length - 1]}
+      />
+    ))
   )
 
   // return <Loader />
