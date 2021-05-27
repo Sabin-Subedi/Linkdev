@@ -12,13 +12,12 @@ const VerifyScreen = ({ location, history }) => {
   const query = location.search
 
   useEffect(() => {
-    if (query && query.toString() === '?verified') {
-      dispatch(logout())
-    }
-
-    if (!query) {
-      history.push('/')
-    }
+    // if (query && query.toString() === '?verified') {
+    //   dispatch(logout())
+    // }
+    // if (!query) {
+    //   history.push('/')
+    // }
   }, [dispatch, query, history])
 
   return (
