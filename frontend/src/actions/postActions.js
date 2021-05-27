@@ -35,10 +35,7 @@ export const getPosts = () => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(
-      'https://linkdev-sabin.herokuapp.com/v1/posts',
-      config
-    )
+    const { data } = await axios.get('/v1/posts', config)
 
     dispatch({
       type: POST_LIST_SUCCESS,
@@ -72,10 +69,7 @@ export const likePost = (postId) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(
-      `https://linkdev-sabin.herokuapp.com/v1/post/like/${postId}`,
-      config
-    )
+    const { data } = await axios.get(`/v1/post/like/${postId}`, config)
 
     const dataIndex = postList.posts.findIndex(
       (post) => post._id.toString() === data._id
@@ -124,7 +118,7 @@ export const createPost = (text, image) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.post(
-      'https://linkdev-sabin.herokuapp.com/v1/posts',
+      '/v1/posts',
       { text, postImage: image },
       config
     )
@@ -160,10 +154,7 @@ export const getUserPosts = (userId) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(
-      `https://linkdev-sabin.herokuapp.com/v1/posts/${userId}`,
-      config
-    )
+    const { data } = await axios.get(`/v1/posts/${userId}`, config)
 
     dispatch({
       type: USER_POST_LIST_SUCCESS,
@@ -198,7 +189,7 @@ export const commentPost = (text, postId) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `https://linkdev-sabin.herokuapp.com/v1/post/comment/${postId}`,
+      `/v1/post/comment/${postId}`,
       { text },
       config
     )
@@ -238,10 +229,7 @@ export const getPostById = (postId) => async (dispatch, getState) => {
       },
     }
 
-    const { data } = await axios.get(
-      `https://linkdev-sabin.herokuapp.com/v1/post/${postId}`,
-      config
-    )
+    const { data } = await axios.get(`/v1/post/${postId}`, config)
 
     dispatch({
       type: POST_BY_ID_SUCCESS,
