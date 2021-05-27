@@ -51,7 +51,6 @@ function Profile(props) {
               rows={4}
               placeholder='Add a Bio'
               value={bio ? bio : ''}
-              required
               onChange={(e) => setBio(e.target.value)}
             ></Form.Control>
           </Form.Group>
@@ -66,7 +65,6 @@ function Profile(props) {
                 type='text'
                 placeholder='Location'
                 value={location ? location : ''}
-                required
                 onChange={(e) => setLocation(e.target.value)}
               ></Form.Control>
             </Col>
@@ -83,7 +81,6 @@ function Profile(props) {
                 type='text'
                 placeholder='Website'
                 value={website ? website : ''}
-                required
                 onChange={(e) => setWebsite(e.target.value)}
               ></Form.Control>
             </Col>
@@ -100,7 +97,6 @@ function Profile(props) {
                 type='text'
                 placeholder='Your Twitter Profile URL'
                 value={twitter ? twitter : ''}
-                required
                 onChange={(e) => setTwitter(e.target.value)}
               ></Form.Control>
             </Col>
@@ -117,7 +113,6 @@ function Profile(props) {
                 type='text'
                 placeholder='Your Github Profile URL'
                 value={github ? github : ''}
-                required
                 onChange={(e) => setGithub(e.target.value)}
               ></Form.Control>
             </Col>
@@ -134,7 +129,6 @@ function Profile(props) {
                 type='text'
                 placeholder='Your Facebook Profile URL'
                 value={facebook ? facebook : ''}
-                required
                 onChange={(e) => setFacebook(e.target.value)}
               ></Form.Control>
             </Col>
@@ -151,7 +145,6 @@ function Profile(props) {
                 type='text'
                 placeholder='Your Linkedin Profile URL'
                 value={linkedin ? linkedin : ''}
-                required
                 onChange={(e) => setLinkedin(e.target.value)}
               ></Form.Control>
             </Col>
@@ -162,6 +155,15 @@ function Profile(props) {
             size='lg'
             className='mt-2 '
             block
+            disabled={
+              !bio ||
+              !location ||
+              !facebook ||
+              !twitter ||
+              !github ||
+              !website ||
+              !linkedin
+            }
           >
             Update Profile
           </Button>
