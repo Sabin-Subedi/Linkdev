@@ -141,12 +141,6 @@ export const verifyEmail = async (req, res) => {
         expiresIn: '12h',
       })
 
-      if (process.env.NODE_ENV === 'development') {
-        const URI = `https://linkdev-sabin.herokuapp.com/v1/auth/verifyuser/${token}`
-      } else {
-        const URI = `http://localhost:5000/v1/auth/verifyuser/${token}`
-      }
-
       const URI = `https://linkdev-sabin.herokuapp.com/v1/auth/verifyuser/${token}`
       const subject = 'VERIFY YOUR EMAIL ADDRESS'
       const name = user.name
