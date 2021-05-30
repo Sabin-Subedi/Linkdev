@@ -120,3 +120,21 @@ export const getPostById = async (req, res) => {
     res.status(400).json({ message: err.message, stack: err.stack })
   }
 }
+
+export const deletePostById = async (req, res) => {
+  try {
+    const postId = req.params.id
+    const post = await Post.findById(postId)
+
+    if (!post) {
+      res.status(400).json({ message: 'Post Not Found' })
+    }
+
+    post.delete()
+
+    res.status(201).json(post)
+  } catch (err) {
+    console.log(err)
+    res.status(400).json({ message: err.message, stack: err.stack })
+  }
+}

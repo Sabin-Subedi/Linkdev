@@ -7,6 +7,7 @@ import profileRoutes from './routes/profileRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import path from 'path'
 import cors from 'cors'
+import { bucket } from './firebase.js'
 
 dotenv.config()
 

@@ -2,6 +2,7 @@ import express from 'express'
 import {
   commentPosts,
   createPosts,
+  deletePostById,
   getPostById,
   getPostByUser,
   getPosts,
@@ -16,5 +17,7 @@ router.put('/post/comment/:id', protect, commentPosts)
 router.get('/posts/:id', protect, getPostByUser)
 
 router.get('/post/:id', protect, getPostById)
+
+router.delete('/post/:id', protect, deletePostById)
 
 export default router

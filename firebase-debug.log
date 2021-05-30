@@ -1,0 +1,42 @@
+[debug] [2021-05-30T14:22:02.498Z] ----------------------------------------------------------------------
+[debug] [2021-05-30T14:22:02.518Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Sabin Pc\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-05-30T14:22:02.519Z] CLI Version:   8.11.0
+[debug] [2021-05-30T14:22:02.519Z] Platform:      win32
+[debug] [2021-05-30T14:22:02.519Z] Node Version:  v14.16.1
+[debug] [2021-05-30T14:22:02.596Z] Time:          Sun May 30 2021 20:07:02 GMT+0545 (Nepal Time)
+[debug] [2021-05-30T14:22:02.597Z] ----------------------------------------------------------------------
+[debug] [2021-05-30T14:22:02.597Z] 
+[debug] [2021-05-30T14:22:02.683Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-30T14:22:02.683Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Sabin Pc\Desktop\LinDev_Dev
+
+[debug] [2021-05-30T14:22:45.993Z] ----------------------------------------------------------------------
+[debug] [2021-05-30T14:22:45.995Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Sabin Pc\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2021-05-30T14:22:45.995Z] CLI Version:   8.11.0
+[debug] [2021-05-30T14:22:45.995Z] Platform:      win32
+[debug] [2021-05-30T14:22:45.995Z] Node Version:  v14.16.1
+[debug] [2021-05-30T14:22:45.996Z] Time:          Sun May 30 2021 20:07:45 GMT+0545 (Nepal Time)
+[debug] [2021-05-30T14:22:45.996Z] ----------------------------------------------------------------------
+[debug] [2021-05-30T14:22:45.996Z] 
+[debug] [2021-05-30T14:22:46.009Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-05-30T14:22:46.012Z] > authorizing via signed-in user
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Sabin Pc\Desktop\LinDev_Dev
+

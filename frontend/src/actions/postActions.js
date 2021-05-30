@@ -179,6 +179,7 @@ export const commentPost = (text, postId) => async (dispatch, getState) => {
       userLogin: { userInfo },
       postById,
       postList,
+      userPostList,
     } = getState()
 
     const config = {
@@ -194,7 +195,14 @@ export const commentPost = (text, postId) => async (dispatch, getState) => {
       config
     )
 
-    postList.posts &&
+    userPostList &&
+      userPostList.posts.length !== 0 &&
+      userPostList.posts
+        .find((post) => post._id === postId)
+        .comments.push(data.newComment)
+
+    postList &&
+      postList.posts.length !== 0 &&
       postList.posts
         .find((post) => post._id === postId)
         .comments.push(data.newComment)

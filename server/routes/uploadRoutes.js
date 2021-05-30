@@ -1,7 +1,10 @@
 import path from 'path'
 import express from 'express'
 import multer from 'multer'
+
 const router = express.Router()
+
+import { bucket } from '../firebase.js'
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
@@ -34,8 +37,23 @@ const upload = multer({
   },
 })
 
-router.post('/', upload.single('image'), (req, res) => {
-  res.send(`/${req.file.path}`)
+router.post('/', upload.single('image'), async (req, res) => {
+  try {
+    const file = req.file
+
+    const result = await bucket.upload(file.path, {
+      public: true,
+    })
+
+    const image = await bucket.file(result[0].metadata.name)
+
+    console.log(image.publicUrl())
+
+    // console.log(image)
+    res.status(200).json({ imagePath: image.publicUrl() })
+  } catch (error) {
+    console.log(error)
+  }
 })
 
 export default router

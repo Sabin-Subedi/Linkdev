@@ -62,6 +62,10 @@ input[type=date].form-control,.name
   text-transform: capitalize;
 }
 
+.dp_delete::after{
+  display: none !important;
+}
+
 
 .post_button, .cursor{
   cursor: pointer ;

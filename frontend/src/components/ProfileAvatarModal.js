@@ -4,6 +4,7 @@ import 'emoji-mart/css/emoji-mart.css'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { updateProfileAvatar } from '../actions/profileActions'
+import Loader from './Loader'
 
 function ProfileAvatarModal(props) {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ function ProfileAvatarModal(props) {
     const formData = new FormData()
     formData.append('image', file)
     setUploading(true)
+    setAvatar('')
 
     try {
       const config = {
@@ -37,13 +39,10 @@ function ProfileAvatarModal(props) {
         },
       }
 
-      const { data } = await axios.post(
-        'https://linkdev-sabin.herokuapp.com/v1/upload',
-        formData,
-        config
-      )
+      const { data } = await axios.post('/v1/upload', formData, config)
 
-      setAvatar(data)
+      setAvatar(data.imagePath)
+      setUploading(false)
     } catch (error) {
       console.error(error)
       setUploading(false)
@@ -63,6 +62,14 @@ function ProfileAvatarModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {uploading && (
+          <>
+            <Loader />{' '}
+            <h4 className='text-primary text-center mt-5'>
+              Uploading Your Image....
+            </h4>
+          </>
+        )}
         <Image
           src={avatar ? avatar : profile && profile.user && profile.user.avatar}
           fluid

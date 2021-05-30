@@ -6,6 +6,7 @@ import 'emoji-mart/css/emoji-mart.css'
 import { useDispatch, useSelector } from 'react-redux'
 import { createPost } from '../actions/postActions'
 import { LinkContainer } from 'react-router-bootstrap'
+import Loader from './Loader'
 
 function PostModal(props) {
   const dispatch = useDispatch()
@@ -24,6 +25,7 @@ function PostModal(props) {
     const formData = new FormData()
     formData.append('image', file)
     setUploading(true)
+    setImage('')
 
     try {
       const config = {
@@ -32,13 +34,9 @@ function PostModal(props) {
         },
       }
 
-      const { data } = await axios.post(
-        'https://linkdev-sabin.herokuapp.com/v1/upload',
-        formData,
-        config
-      )
+      const { data } = await axios.post('/v1/upload', formData, config)
 
-      setImage(data)
+      setImage(data.imagePath)
       setUploading(false)
       console.log(data)
     } catch (error) {
@@ -124,7 +122,14 @@ function PostModal(props) {
 
             {image && <Image src={image} fluid block />}
           </Form.Group>
-
+          {uploading && (
+            <>
+              <Loader />{' '}
+              <h4 className='text-primary text-center mt-5'>
+                Uploading Your Image....
+              </h4>
+            </>
+          )}
           <Form.Group className='file'>
             <Row className='align-items-center pr-5 postion-relative'>
               <Col md={6}>

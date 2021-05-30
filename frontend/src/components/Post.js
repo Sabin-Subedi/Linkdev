@@ -4,6 +4,7 @@ import {
   Button,
   Card,
   Col,
+  Dropdown,
   FormControl,
   Image,
   InputGroup,
@@ -79,7 +80,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
         <Card.Body className='px-0 py-1'>
           <Row className='p-2 px-2 align-items-center justify-content-between'>
             <LinkContainer to={`/profile/${post.user}`}>
-              <Col md={8} className='d-flex align-items-center cursor'>
+              <Col sm={8} className='d-flex align-items-center cursor'>
                 <Image
                   src={post.avatar}
                   style={{ width: '50px', height: '50px' }}
@@ -95,8 +96,22 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
               </Col>
             </LinkContainer>
 
-            <Col md={4} className='text-right pr-4'>
-              <i className='fas fa-ellipsis-v icon'></i>
+            <Col sm={4} className='text-right pr-4'>
+              {/* <i className='fas fa-ellipsis-v icon'></i> */}
+              <Dropdown alignRight>
+                <Dropdown.Toggle
+                  className='bg-transparent border-0 text-color_primary dp_delete'
+                  id='dropdown-delete'
+                >
+                  <i className='fas fa-ellipsis-v icon'></i>
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item>
+                    <i className='fas fa-trash mr-2'></i>Delete Post
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </Col>
           </Row>
 
@@ -267,33 +282,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                   </span>
                 </Link>
               )}
-              {!postScreen && commentStatus && commentStatus.success && (
-                <Alert className='rounded-pill my-2 mb-3' variant='success'>
-                  You Succesfully commented to the post.{' '}
-                  <Link className='text-blue_primary' to={`/post/${post._id}`}>
-                    View Your Comment
-                  </Link>
-                </Alert>
-              )}
-              {commentStatus && commentStatus.loading ? (
-                <div className='d-flex align-items-center justify-content-center my-2 text-2'>
-                  <span className='mr-2'>Posting...</span>
-                  <Spinner
-                    as='span'
-                    variant='primary'
-                    animation='border'
-                    role='status'
-                    aria-hidden='true'
-                  />
-                </div>
-              ) : (
-                ''
-              )}
-              {commentStatus && commentStatus.error && (
-                <Alert className='rounded-pill my-2 mb-3' variant='danger'>
-                  {commentStatus.error}
-                </Alert>
-              )}
+
               <Row className='align-items-center mt-2'>
                 <Col md={10} className='px-0 d-flex'>
                   <Image
