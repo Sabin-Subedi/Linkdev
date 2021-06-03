@@ -107,8 +107,7 @@ const HomeScreen = ({ history, location }) => {
               </h4>
               {loading && <Loader />}
               {error && <Message>{error}</Message>}
-              {users && users.map((user) => <User user={user} />)}
-              <User />
+              {users ? users.map((user) => <User user={user} />) : ''}
             </Col>
           </Row>
         </Container>

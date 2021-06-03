@@ -14,7 +14,7 @@ function User({ user }) {
             roundedCircle
             className='cursor'
           />
-          <h6 className='ml-2 cursor'>{user && user.name}</h6>
+          <h6 className='ml-2 cursor capital'>{user && user.name}</h6>
         </Col>
       </LinkContainer>
     </Row>
