@@ -2,18 +2,19 @@ import React from 'react'
 import { Row, Image, Col } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
-function User() {
+function User({ user }) {
   return (
     <Row>
-      <LinkContainer to='/profile'>
-        <Col md={10} className='d-flex my-2 align-items-center'>
+      <LinkContainer to={`/profile/${user && user._id}`}>
+        <Col md={10} className='d-flex my-2 align-items-center '>
           <Image
-            src='/uploads/image-1622391058080.png'
+            src={user && user.avatar}
             style={{ width: '40px', height: '40px' }}
             fluid='true'
             roundedCircle
+            className='cursor'
           />
-          <h6 className='ml-2'>Sabin Subedi</h6>
+          <h6 className='ml-2 cursor'>{user && user.name}</h6>
         </Col>
       </LinkContainer>
     </Row>

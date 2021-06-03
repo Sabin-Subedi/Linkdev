@@ -46,3 +46,13 @@ export const updateUserAvatar = async (req, res) => {
     res.status(400).json({ message: err.message, stack: err.stack })
   }
 }
+
+export const getUsers = async (req, res) => {
+  try {
+    const users = await User.find()
+
+    return res.status(200).json(users)
+  } catch (err) {
+    res.status(400).json({ message: err.message, stack: err.stack })
+  }
+}

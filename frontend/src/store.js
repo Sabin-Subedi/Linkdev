@@ -7,6 +7,8 @@ import {
   userProfileReducer,
 } from './reducers/profileReducers'
 
+import { userListReducer } from './reducers/userReducer'
+
 import {
   commentStatusReducer,
   deletedPostReducer,
@@ -27,6 +29,7 @@ const reducer = combineReducers({
   commentStatus: commentStatusReducer,
   postById: postByIdReducer,
   deletedPost: deletedPostReducer,
+  userList: userListReducer,
 })
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')

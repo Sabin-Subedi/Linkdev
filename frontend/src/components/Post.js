@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
 import {
-  Alert,
   Button,
   Card,
   Col,
@@ -10,7 +9,6 @@ import {
   InputGroup,
   ListGroup,
   Row,
-  Spinner,
 } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'

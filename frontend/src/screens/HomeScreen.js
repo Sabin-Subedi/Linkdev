@@ -11,6 +11,8 @@ import PostCreater from '../components/PostCreater'
 import PostList from '../components/PostList'
 import Meta from '../components/Meta'
 import User from '../components/User'
+import { getUsers } from '../actions/userActions'
+import Loader from '../components/Loader'
 
 const HomeScreen = ({ history, location }) => {
   const dispatch = useDispatch()
@@ -23,6 +25,9 @@ const HomeScreen = ({ history, location }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
 
+  const userList = useSelector((state) => state.userList)
+  const { users, loading, error } = userList
+
   console.log(userLogin)
 
   const verifyEmail = useSelector((state) => state.verifyEmail)
@@ -34,6 +39,7 @@ const HomeScreen = ({ history, location }) => {
     }
 
     dispatch(getPosts())
+    dispatch(getUsers())
   }, [history, userInfo, dispatch])
 
   const verifyHandler = () => {
@@ -99,6 +105,9 @@ const HomeScreen = ({ history, location }) => {
               <h4>
                 <i className='fas fa-user mb-2'></i> Let's Connect
               </h4>
+              {loading && <Loader />}
+              {error && <Message>{error}</Message>}
+              {users && users.map((user) => <User user={user} />)}
               <User />
             </Col>
           </Row>
