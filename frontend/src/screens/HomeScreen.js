@@ -10,6 +10,7 @@ import Message from '../components/Message'
 import PostCreater from '../components/PostCreater'
 import PostList from '../components/PostList'
 import Meta from '../components/Meta'
+import User from '../components/User'
 
 const HomeScreen = ({ history, location }) => {
   const dispatch = useDispatch()
@@ -94,7 +95,9 @@ const HomeScreen = ({ history, location }) => {
               <PostCreater user={userInfo} history={history} />
               <PostList />
             </Col>
-            <Col md={3}></Col>
+            <Col md={3}>
+              <User />
+            </Col>
           </Row>
         </Container>
       </div>
