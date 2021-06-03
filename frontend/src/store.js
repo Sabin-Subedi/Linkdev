@@ -9,6 +9,7 @@ import {
 
 import {
   commentStatusReducer,
+  deletedPostReducer,
   postByIdReducer,
   postCreateReducer,
   postListReducer,
@@ -25,6 +26,7 @@ const reducer = combineReducers({
   userAvatar: userAvatarReducer,
   commentStatus: commentStatusReducer,
   postById: postByIdReducer,
+  deletedPost: deletedPostReducer,
 })
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')

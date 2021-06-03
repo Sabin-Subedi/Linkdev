@@ -111,10 +111,10 @@ export const getPostById = async (req, res) => {
     const post = await Post.findById(postId)
 
     if (!post) {
-      res.status(400).json({ message: 'Post Not Found' })
+      return res.status(400).json({ message: 'Post Not Found' })
     }
 
-    return res.status(200).json(post)
+    res.status(200).json(post)
   } catch (err) {
     console.log(err)
     res.status(400).json({ message: err.message, stack: err.stack })
@@ -127,12 +127,16 @@ export const deletePostById = async (req, res) => {
     const post = await Post.findById(postId)
 
     if (!post) {
-      res.status(400).json({ message: 'Post Not Found' })
+      return res.status(400).json({ message: 'Post Not Found' })
     }
 
-    post.delete()
+    if (post.user.toString() === req.user.id.toString()) {
+      post.delete()
 
-    res.status(201).json(post)
+      return res.status(201).json('Post Succesfully Deleted')
+    }
+
+    res.status(400).json({ message: "The post doesn't belongs to you " })
   } catch (err) {
     console.log(err)
     res.status(400).json({ message: err.message, stack: err.stack })

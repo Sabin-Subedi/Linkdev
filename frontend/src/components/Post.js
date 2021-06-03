@@ -14,7 +14,7 @@ import {
 } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { commentPost, likePost } from '../actions/postActions'
+import { commentPost, deletePostById, likePost } from '../actions/postActions'
 
 import DateFormat from './Date'
 import moment from 'moment'
@@ -74,6 +74,10 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
     setComment('')
   }
 
+  const deletePostHandler = () => {
+    dispatch(deletePostById(post._id))
+  }
+
   return (
     <>
       <Card className='rounded-lg my-4'>
@@ -98,20 +102,22 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
 
             <Col sm={4} className='text-right pr-4'>
               {/* <i className='fas fa-ellipsis-v icon'></i> */}
-              <Dropdown alignRight>
-                <Dropdown.Toggle
-                  className='bg-transparent border-0 text-color_primary dp_delete'
-                  id='dropdown-delete'
-                >
-                  <i className='fas fa-ellipsis-v icon'></i>
-                </Dropdown.Toggle>
+              {post.user.toString() === userInfo.id.toString() && (
+                <Dropdown alignRight>
+                  <Dropdown.Toggle
+                    className='bg-transparent border-0 text-color_primary dp_delete'
+                    id='dropdown-delete'
+                  >
+                    <i className='fas fa-ellipsis-v icon'></i>
+                  </Dropdown.Toggle>
 
-                <Dropdown.Menu>
-                  <Dropdown.Item>
-                    <i className='fas fa-trash mr-2'></i>Delete Post
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={deletePostHandler}>
+                      <i className='fas fa-trash mr-2'></i>Delete Post
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              )}
             </Col>
           </Row>
 

@@ -9,6 +9,9 @@ import {
   POST_CREATE_FAIL,
   POST_CREATE_REQUEST,
   POST_CREATE_SUCCESS,
+  POST_DELETE_FAIL,
+  POST_DELETE_REQUEST,
+  POST_DELETE_SUCCESS,
   POST_LIKE_FAIL,
   POST_LIKE_REQUEST,
   POST_LIKE_SUCCESS,
@@ -223,6 +226,7 @@ export const commentPost = (text, postId) => async (dispatch, getState) => {
     })
   }
 }
+
 export const getPostById = (postId) => async (dispatch, getState) => {
   try {
     dispatch({ type: POST_BY_ID_REQUEST })
@@ -246,6 +250,38 @@ export const getPostById = (postId) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: POST_BY_ID_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const deletePostById = (postId) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: POST_DELETE_REQUEST })
+
+    const {
+      userLogin: { userInfo },
+      postList,
+    } = getState()
+
+    const config = {
+      headers: {
+        authorization: `Bearer ${userInfo.token}`,
+      },
+    }
+
+    await axios.delete(`/v1/post/${postId}`, config)
+
+    dispatch({
+      type: POST_DELETE_SUCCESS,
+      payload: postList.posts.filter((post) => post._id.toString() !== postId),
+    })
+  } catch (error) {
+    dispatch({
+      type: POST_DELETE_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
