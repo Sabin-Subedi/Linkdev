@@ -1,29 +1,24 @@
 import React, { useState, useEffect } from 'react'
-// import { Link } from 'react-router-dom'
 import { Form, Button, Row, Col, Container, Image } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
-// import { login } from '../actions/authActions'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { LinkContainer } from 'react-router-bootstrap'
+import { forgotEmail } from '../actions/authActions'
 import Footer from '../components/Footer'
-// import Message from '../components/Message'
+import Message from '../components/Message'
 
-const LoginScreen = ({ location, history }) => {
+const ForgotPasswordScreen = () => {
   const [email, setEmail] = useState('')
 
-  // const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-  const userLogin = useSelector((state) => state.userLogin)
-  const { userInfo } = userLogin
-
-  useEffect(() => {
-    if (userInfo) {
-      history.push('/')
-    }
-  }, [history, userInfo])
+  const forgetEmail = useSelector((state) => state.forgetEmail)
+  const { error, success } = forgetEmail
 
   const submitHandler = (e) => {
     e.preventDefault()
+
+    dispatch(forgotEmail(email))
   }
 
   return (
@@ -37,18 +32,23 @@ const LoginScreen = ({ location, history }) => {
             </p>
           </Col>
           <Col md={5} className='bg-body_secondary p-5 rounded-lg'>
-            <h1>Reset Password</h1>
-            <p className='text-secondary text-1'>
-              Enter your email address to request password change
+            <h1>Forgot Password</h1>
+            <p className='text-secondary text-0'>
+              Please enter your registered email address. An email notification
+              with a password reset link will then be sent to you.
             </p>
-            {/* {error && <Message>{error}</Message>} */}
-            {/* {loading && <Loader />} */}
+            {success && (
+              <Message variant='success'>
+                Password Reset Link Sent To Your Email.
+              </Message>
+            )}
+            {error && <Message>{error}</Message>}
             <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
                 <Form.Control
                   className='bg-body_tertiary border-0 text-blue_secondary'
                   size='lg'
-                  type='text'
+                  type='email'
                   placeholder='Email Address'
                   value={email}
                   required
@@ -95,4 +95,4 @@ const LoginScreen = ({ location, history }) => {
   )
 }
 
-export default LoginScreen
+export default ForgotPasswordScreen

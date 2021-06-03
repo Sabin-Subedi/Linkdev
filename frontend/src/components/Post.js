@@ -309,6 +309,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                     ></FormControl>
                   </InputGroup>
                 </Col>
+
                 <Col md={2} className='px-1'>
                   <Button
                     onClick={commentHandler}

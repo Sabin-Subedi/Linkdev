@@ -16,17 +16,19 @@ const Footer = ({ background }) => {
             className='ml-auto text-right d-flex flex-wrap align-items-center justify-content-end'
           >
             <LinkContainer to='/privacy' className='mx-2'>
-              <span className='mx-1'>Privacy & Policy</span>
+              <span className='mx-1 cursor'>Privacy & Policy</span>
             </LinkContainer>
-            <LinkContainer to='/privacy'>
-              <span className='mx-1'>Report a Bug</span>
+            <LinkContainer to='/feedback'>
+              <span className='mx-1 cursor'>Give Feedback</span>
             </LinkContainer>
-            <LinkContainer to='/privacy'>
-              <i className='icon fab fa-github mx-2'></i>
-            </LinkContainer>
-            <LinkContainer to='/privacy'>
-              <i className='icon fab fa-discord mx-2'></i>
-            </LinkContainer>
+
+            <a
+              href='https://discord.gg/8h4Cfj5enj'
+              target='_blank'
+              rel='noreferrer'
+            >
+              <i className='icon fab fa-discord mx-2 text-color_primary'></i>
+            </a>
           </Col>
         </Row>
       </Container>

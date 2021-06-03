@@ -1,7 +1,13 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import { userLoginReducer, verifyEmailReducer } from './reducers/authReducers'
+import {
+  forgetEmailReducer,
+  resetPasswordReducer,
+  tokenVerifyReducer,
+  userLoginReducer,
+  verifyEmailReducer,
+} from './reducers/authReducers'
 import {
   userAvatarReducer,
   userProfileReducer,
@@ -30,6 +36,9 @@ const reducer = combineReducers({
   postById: postByIdReducer,
   deletedPost: deletedPostReducer,
   userList: userListReducer,
+  forgetEmail: forgetEmailReducer,
+  tokenVerify: tokenVerifyReducer,
+  resetPassword: resetPasswordReducer,
 })
 
 const userInfoFromLocalStorage = localStorage.getItem('userInfo')

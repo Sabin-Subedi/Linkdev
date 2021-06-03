@@ -18,15 +18,13 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { error, userInfo } = userLogin
 
-  const redirect = location.search ? location.search.split('?')[1] : '/'
-
-  console.log(redirect)
+  // const redirect = location.search ? location.search.split('?')[1] : '/'
 
   useEffect(() => {
     if (userInfo) {
-      history.push(redirect)
+      history.push('/')
     }
-  }, [history, userInfo, redirect])
+  }, [history, userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -39,7 +37,7 @@ const LoginScreen = ({ location, history }) => {
       <Container>
         <Row className='login_mainContent align-items-center justify-content-between'>
           <Col md={5}>
-            <Image src='./logo.svg' fluid='true' />
+            <Image src='\logo.svg' fluid='true' />
             <p className='my-2 text_desc'>
               Connect with developers all around the world on Linkdev
             </p>
@@ -48,6 +46,12 @@ const LoginScreen = ({ location, history }) => {
             <h1>Sign In</h1>
             {error && <Message>{error}</Message>}
             {/* {loading && <Loader />} */}
+            {location.search &&
+              location.search.toString() === '?passwordChanged' && (
+                <Message variant='success'>
+                  Your Password was successfully changed
+                </Message>
+              )}
             <Form onSubmit={submitHandler}>
               <Form.Group controlId='email'>
                 <Form.Label className='form_label'>Email Adress</Form.Label>

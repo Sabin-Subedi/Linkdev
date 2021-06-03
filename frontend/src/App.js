@@ -8,6 +8,8 @@ import ForgotPasswordScreen from './screens/ForgotPasswordScreen'
 import 'emoji-mart/css/emoji-mart.css'
 import ProfileScreen from './screens/ProfileScreen'
 import PostScreen from './screens/PostScreen'
+import FeedbackScreen from './screens/FeedbackScreen'
+import ResetPasswordScreen from './screens/ResetPasswordScreen'
 
 const App = () => {
   return (
@@ -20,6 +22,8 @@ const App = () => {
         <Route path='/verify/:token' component={VerifyScreen} />
         <Route path='/post/:id' component={PostScreen} />
         <Route path='/verified' component={VerifyScreen} />
+        <Route path='/resetPassword/:token' component={ResetPasswordScreen} />
+        <Route path='/feedback' component={FeedbackScreen} exact />
         <Route path='/' component={HomeScreen} exact />
       </main>
     </Router>

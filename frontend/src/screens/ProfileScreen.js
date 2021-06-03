@@ -10,6 +10,7 @@ import { getProfileDetail } from '../actions/profileActions'
 import ProfileModal from '../components/ProfileModal'
 import ProfileAvatarModal from '../components/ProfileAvatarModal'
 import Meta from '../components/Meta'
+import Message from '../components/Message'
 
 const ProfileScreen = ({ history, match }) => {
   const userId = match.params.id
@@ -22,7 +23,7 @@ const ProfileScreen = ({ history, match }) => {
   const [AvatarModalShow, setAvatarModalShow] = useState(false)
 
   const userPostList = useSelector((state) => state.userPostList)
-  const { posts, loading } = userPostList
+  const { posts, loading, error } = userPostList
 
   const userProfile = useSelector((state) => state.userProfile)
   const { profile, loading: loadingUser } = userProfile
@@ -249,15 +250,20 @@ const ProfileScreen = ({ history, match }) => {
                 <Col md={7}>
                   <h2>Your Posts</h2>
 
-                  {posts &&
+                  {error ? (
+                    <Message>{error}</Message>
+                  ) : loading ? (
+                    <Loader />
+                  ) : (
                     posts.map((post) => (
                       <Post
                         key={post._id}
+                        post={post}
                         comment1={post.comments[post.comments.length - 2]}
                         comment2={post.comments[post.comments.length - 1]}
-                        post={post}
                       />
-                    ))}
+                    ))
+                  )}
                 </Col>
               </Row>
               {profile && (

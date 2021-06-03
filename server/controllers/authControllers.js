@@ -3,6 +3,7 @@ import User from '../models/userModels.js'
 import bcrypt from 'bcryptjs'
 import { sendEmail } from '../utils/email.js'
 import Profile from '../models/profileModels.js'
+import { forgetEmail } from '../utils/forgotEmail.js'
 
 // ! @route POST /v1/auth/login
 // ? @desc Login User
@@ -189,6 +190,81 @@ export const verifyUser = async (req, res) => {
     return res.redirect(
       `https://linkdev-sabin.herokuapp.com/verified?notverified`
     )
+  } catch (err) {
+    res.status(400).json({ message: err.message, stack: err.stack })
+  }
+}
+
+// ! @route POST /v1/auth/forgotpassword
+// ? @desc Login User
+// * @acess Public
+export const forgetPassword = async (req, res) => {
+  try {
+    const { email } = req.body
+    const user = await User.findOne({ email })
+
+    if (user) {
+      const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+        expiresIn: '12h',
+      })
+
+      const URI = `https://linkdev-sabin.herokuapp.com/resetPassword/${token}`
+      const subject = 'RESET YOUR PASSWORD'
+      const name = user.name
+
+      forgetEmail(email, URI, subject, name)
+
+      return res
+        .status(200)
+        .json({ message: 'Successfully send the reset link to your email.' })
+    }
+
+    res.status(400).json({ message: 'Invalid Email or Password' })
+  } catch (err) {
+    res.status(400).json({ message: err.message, stack: err.stack })
+  }
+}
+
+export const tokenVerify = async (req, res) => {
+  try {
+    const token = req.params.token
+
+    const decoded = jwt.decode(token)
+
+    const user = await User.findById(decoded.id)
+
+    if (user) {
+      return res.status(200).json({ message: 'Token Verified' })
+    }
+
+    res
+      .status(400)
+      .json({ message: 'There was some error verifying your token.' })
+  } catch (err) {
+    res.status(400).json({ message: err.message, stack: err.stack })
+  }
+}
+
+export const resetPassword = async (req, res) => {
+  try {
+    const { password } = req.body
+    const token = req.params.token
+
+    const decoded = jwt.decode(token)
+
+    const user = await User.findById(decoded.id)
+
+    if (user) {
+      user.password = password
+
+      await user.save()
+
+      return res.status(200).json({ message: 'Password Changed' })
+    }
+
+    res
+      .status(400)
+      .json({ message: 'There was some error resetting your password.' })
   } catch (err) {
     res.status(400).json({ message: err.message, stack: err.stack })
   }

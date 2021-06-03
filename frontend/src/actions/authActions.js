@@ -6,9 +6,15 @@ import {
   USER_REGISTER_FAIL,
   USER_REGISTER_REQUEST,
   USER_REGISTER_SUCCESS,
-  USER_VERIFY_FAIL,
-  USER_VERIFY_REQUEST,
-  USER_VERIFY_SUCCESS,
+  PASSWORD_FORGET_FAIL,
+  PASSWORD_FORGET_REQUEST,
+  PASSWORD_FORGET_SUCCESS,
+  TOKEN_VERIFY_REQUEST,
+  TOKEN_VERIFY_SUCCESS,
+  TOKEN_VERIFY_FAIL,
+  RESET_PASSWORD_REQUEST,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_FAIL,
 } from '../constants/authConstant'
 import axios from 'axios'
 
@@ -86,7 +92,7 @@ export const logout = () => async (dispatch) => {
 
 export const getEmail = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: USER_VERIFY_REQUEST })
+    dispatch({ type: PASSWORD_FORGET_REQUEST })
 
     const {
       userLogin: { userInfo },
@@ -101,12 +107,12 @@ export const getEmail = () => async (dispatch, getState) => {
     const { data } = await axios.get('/v1/auth/verifyEmail', config)
 
     dispatch({
-      type: USER_VERIFY_SUCCESS,
+      type: PASSWORD_FORGET_SUCCESS,
       payload: data,
     })
   } catch (error) {
     dispatch({
-      type: USER_VERIFY_FAIL,
+      type: PASSWORD_FORGET_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -114,3 +120,87 @@ export const getEmail = () => async (dispatch, getState) => {
     })
   }
 }
+
+export const forgotEmail = (email) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PASSWORD_FORGET_REQUEST })
+
+    const config = {
+      headers: {
+        'Content-Type': `application/json`,
+      },
+    }
+
+    const { data } = await axios.post(
+      '/v1/auth/forgotPassword',
+      { email },
+      config
+    )
+
+    dispatch({
+      type: PASSWORD_FORGET_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: PASSWORD_FORGET_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const verifyForgetToken = (token) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: TOKEN_VERIFY_REQUEST })
+
+    const { data } = await axios.get(`/v1/auth/tokenVerify/${token}`)
+
+    dispatch({
+      type: TOKEN_VERIFY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    dispatch({
+      type: TOKEN_VERIFY_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    })
+  }
+}
+
+export const resetPassword =
+  (token, password) => async (dispatch, getState) => {
+    try {
+      dispatch({ type: RESET_PASSWORD_REQUEST })
+
+      const config = {
+        headers: {
+          'Content-Type': `application/json`,
+        },
+      }
+
+      const { data } = await axios.post(
+        `/v1/auth/resetPassword/${token}`,
+        { password },
+        config
+      )
+
+      dispatch({
+        type: RESET_PASSWORD_SUCCESS,
+        payload: data,
+      })
+    } catch (error) {
+      dispatch({
+        type: RESET_PASSWORD_FAIL,
+        payload:
+          error.response && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      })
+    }
+  }

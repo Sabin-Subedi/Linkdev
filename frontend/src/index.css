@@ -71,6 +71,10 @@ input[type=date].form-control,.name
   cursor: pointer ;
 }
 
+.nav_drop{
+  text-decoration: none !important;
+}
+
 .btn_post_create{
   background-color: #242C37 !important;
   font-size: 1.1rem !important;

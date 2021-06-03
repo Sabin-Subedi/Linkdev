@@ -83,16 +83,11 @@ const Header = ({ history, user }) => {
                   <i className='fas fa-comment-alt mr-2'></i> Give Feedback
                 </NavDropdown.Item>
               </LinkContainer>
-              <LinkContainer to='/bug'>
-                <NavDropdown.Item>
-                  <i className='fas fa-bug mr-2'></i>Report a Bug
-                </NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to='/bug'>
-                <NavDropdown.Item>
-                  <i className='fab fa-discord mr-2'></i>Join Discord
-                </NavDropdown.Item>
-              </LinkContainer>
+
+              <NavDropdown.Item href='https://discord.gg/SRWGYHzN'>
+                <i className='fab fa-discord mr-2'></i>Join Discord
+              </NavDropdown.Item>
+
               <NavDropdown.Item onClick={logoutHandler}>
                 <i className='fas fa-sign-out-alt mr-2'></i>Logout
               </NavDropdown.Item>
