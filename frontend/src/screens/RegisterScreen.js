@@ -91,7 +91,7 @@ const RegisterScreen = ({ history }) => {
                 <InputGroup hasValidation>
                   <Form.Control
                     className='bg-body_tertiary border-0 text-blue_secondary rounded'
-                    type='text'
+                    type='email'
                     placeholder='Email Address'
                     value={email}
                     required
