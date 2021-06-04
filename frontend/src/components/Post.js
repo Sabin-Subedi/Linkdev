@@ -17,6 +17,7 @@ import { commentPost, deletePostById, likePost } from '../actions/postActions'
 import DateFormat from './Date'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+import DeleteModal from './DeleteModal'
 
 const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
   const dispatch = useDispatch()
@@ -44,6 +45,8 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
   const { avatar: avy } = userAvatar
 
   const [avatar, setAvatar] = useState(userInfo && userInfo.avatar)
+
+  const [modalShow, setModalShow] = useState(false)
 
   useEffect(() => {
     if (JSON.stringify(avy) !== '{}') {
@@ -73,7 +76,9 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
   }
 
   const deletePostHandler = () => {
-    dispatch(deletePostById(post._id))
+    // if (window.confirm('?')) {
+    // }
+    // dispatch(deletePostById(post._id))
   }
 
   return (
@@ -111,19 +116,23 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                   </Dropdown.Toggle>
 
                   <Dropdown.Menu>
-                    <Dropdown.Item onClick={deletePostHandler}>
+                    <Dropdown.Item onClick={() => setModalShow(true)}>
                       <i className='fas fa-trash mr-2'></i>Delete Post
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               )}
+              <DeleteModal
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+              />
             </Col>
           </Row>
 
           {post.postImage ? (
             <>
               <p className='pl-2 my-1 text-2'>{post.text}</p>
-              <Card.Img src={post.postImage} src={post.name} fluid />
+              <Card.Img src={post.postImage} alt={post.name} fluid />
             </>
           ) : (
             <h2 className='pl-2 my-1 '>{post.text}</h2>

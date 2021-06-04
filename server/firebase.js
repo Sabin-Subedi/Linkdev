@@ -5,14 +5,14 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
+// process.env.NODE_ENV === 'development' ? devConfig : config
+// process.env.NODE_ENV === 'development'
+//       ? `gs://linkdevdevelopment.appspot.com`
+//       :
+
 const app = admin.initializeApp({
-  credential: admin.credential.cert(
-    process.env.NODE_ENV === 'development' ? devConfig : config
-  ),
-  storageBucket:
-    process.env.NODE_ENV === 'development'
-      ? `gs://linkdevdevelopment.appspot.com`
-      : `gs://hello-de203.appspot.com`,
+  credential: admin.credential.cert(config),
+  storageBucket: `gs://hello-de203.appspot.com`,
 })
 
 const bucket = app.storage().bucket()
