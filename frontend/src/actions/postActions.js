@@ -262,6 +262,7 @@ export const deletePostById = (postId) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
       postList,
+      userPostList,
     } = getState()
 
     const config = {
@@ -275,6 +276,9 @@ export const deletePostById = (postId) => async (dispatch, getState) => {
     dispatch({
       type: POST_DELETE_SUCCESS,
       payload: postList.posts.filter((post) => post._id.toString() !== postId),
+      userPosts: userPostList.posts.filter(
+        (post) => post._id.toString() !== postId
+      ),
     })
   } catch (error) {
     dispatch({

@@ -57,7 +57,7 @@ const ProfileScreen = ({ history, match }) => {
         <>
           <section className='profile_body'>
             <Container>
-              <Row className='mt-4'>
+              <Row className='my-4'>
                 <Col md={5}>
                   <Card className='p-4 rounded-lg'>
                     <div className='card_image position-relative d-flex justify-content-center'>

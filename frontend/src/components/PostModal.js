@@ -38,9 +38,7 @@ function PostModal(props) {
 
       setImage(data.imagePath)
       setUploading(false)
-      console.log(data)
     } catch (error) {
-      console.error(error)
       setUploading(false)
     }
   }

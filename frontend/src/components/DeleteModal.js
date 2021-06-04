@@ -11,7 +11,9 @@ export default function DeleteModal(props) {
 
   const deletePostHandler = () => {
     dispatch(deletePostById(props.id))
+
     if (success) {
+      props.postScreen && props.history.push('/')
       props.onHide()
     }
   }

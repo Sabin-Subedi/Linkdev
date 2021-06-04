@@ -68,6 +68,13 @@ export const userPostListReducer = (state = { posts: [] }, action) => {
         likeLoading: false,
         error: action.payload,
       }
+    case POST_DELETE_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        posts: action.userPosts,
+      }
     case UPDATE_PROFILE_AVATAR_SUCCESS:
       return { loading: false, posts: action.post }
     default:

@@ -37,9 +37,9 @@ const PostScreen = ({ history, match }) => {
           {loading ? (
             <Loader />
           ) : error ? (
-            <Message>{error.message}</Message>
+            <Message>{error}</Message>
           ) : (
-            post && <Post post={post} />
+            post && <Post post={post} postScreen={true} history={history} />
           )}
         </Col>
         <Col md={3}></Col>

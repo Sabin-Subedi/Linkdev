@@ -28,8 +28,6 @@ const HomeScreen = ({ history, location }) => {
   const userList = useSelector((state) => state.userList)
   const { users, loading, error } = userList
 
-  console.log(userLogin)
-
   const verifyEmail = useSelector((state) => state.verifyEmail)
   const { message } = verifyEmail
 

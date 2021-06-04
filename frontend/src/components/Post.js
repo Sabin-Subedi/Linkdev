@@ -19,7 +19,7 @@ import moment from 'moment'
 import { Link } from 'react-router-dom'
 import DeleteModal from './DeleteModal'
 
-const Post = ({ post, postScreen }) => {
+const Post = ({ post, postScreen, history }) => {
   const dispatch = useDispatch()
 
   const commentInput = useRef(null)
@@ -119,6 +119,8 @@ const Post = ({ post, postScreen }) => {
               <DeleteModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                postScreen={postScreen}
+                history={history}
                 id={post._id}
               />
             </Col>
