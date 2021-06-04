@@ -87,6 +87,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                   src={post.avatar}
                   style={{ width: '50px', height: '50px' }}
                   fluid='true'
+                  alt={post.name}
                   roundedCircle
                 />
                 <div className='ml-3'>
@@ -122,7 +123,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
           {post.postImage ? (
             <>
               <p className='pl-2 my-1 text-2'>{post.text}</p>
-              <Card.Img src={post.postImage} fluid />
+              <Card.Img src={post.postImage} src={post.name} fluid />
             </>
           ) : (
             <h2 className='pl-2 my-1 '>{post.text}</h2>
@@ -184,6 +185,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                       <Image
                         className=' mr-2'
                         src={comment.avatar}
+                        alt={comment.user}
                         style={{ width: '8%' }}
                         fluid='true'
                         roundedCircle
@@ -292,6 +294,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                   <Image
                     className=' mr-2'
                     src={avatar}
+                    alt={userInfo.name}
                     style={{ width: '10%' }}
                     fluid='true'
                     roundedCircle

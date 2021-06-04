@@ -18,9 +18,11 @@ const Footer = ({ background }) => {
             <LinkContainer to='/privacy' className='mx-2'>
               <span className='mx-1 cursor'>Privacy & Policy</span>
             </LinkContainer>
-            <LinkContainer to='/feedback'>
-              <span className='mx-1 cursor'>Give Feedback</span>
-            </LinkContainer>
+            <a href='https://www.privacypolicygenerator.info/live.php?token=qbFZQf6waGDH7fnaNuByCaEBlRs1sZZG'>
+              <span className='mx-1 text-color_primary cursor'>
+                Give Feedback
+              </span>
+            </a>
 
             <a
               href='https://discord.gg/8h4Cfj5enj'

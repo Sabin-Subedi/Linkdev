@@ -18,7 +18,7 @@ const userSchema = mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: `https://storage.googleapis.com/hello-de203.appspot.com/image-1622389848630.jpg`,
+      default: `https://storage.googleapis.com/hello-de203.appspot.com/image-1622783412476.jpg`,
     },
     date: {
       type: Date,

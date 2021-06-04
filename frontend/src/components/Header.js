@@ -57,6 +57,7 @@ const Header = ({ history, user }) => {
               <Nav.Link className='d-flex text-1 align-items-center text-color_secondary capital'>
                 <Image
                   src={avatar}
+                  alt={user && user.name}
                   className='mx-2 '
                   fluid
                   roundedCircle
