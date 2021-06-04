@@ -1,6 +1,5 @@
 import admin from 'firebase-admin'
 import config from './config.js'
-import devConfig from './config_dev.js'
 import dotenv from 'dotenv'
 
 dotenv.config()

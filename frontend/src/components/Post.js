@@ -75,12 +75,6 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
     setComment('')
   }
 
-  const deletePostHandler = () => {
-    // if (window.confirm('?')) {
-    // }
-    // dispatch(deletePostById(post._id))
-  }
-
   return (
     <>
       <Card className='rounded-lg my-4'>
@@ -125,6 +119,7 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
               <DeleteModal
                 show={modalShow}
                 onHide={() => setModalShow(false)}
+                id={post._id}
               />
             </Col>
           </Row>

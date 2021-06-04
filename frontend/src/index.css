@@ -94,8 +94,9 @@ input[type=date].form-control,.name
   font-size: 2rem;
   background-color: #242C37 ;
 
-
 }
+
+
 
 .create_input:focus{
   border: none !important;
