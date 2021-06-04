@@ -12,14 +12,14 @@ import {
 } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { commentPost, deletePostById, likePost } from '../actions/postActions'
+import { commentPost, likePost } from '../actions/postActions'
 
 import DateFormat from './Date'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import DeleteModal from './DeleteModal'
 
-const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
+const Post = ({ post, postScreen }) => {
   const dispatch = useDispatch()
 
   const commentInput = useRef(null)
@@ -179,8 +179,9 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
             </ListGroup.Item>
 
             <ListGroup.Item className='text-center'>
-              {postComment &&
-                postComment.map((comment) => (
+              {postScreen &&
+                post.comments &&
+                post.comments.map((comment) => (
                   <Row className={`align-items-center mb-2`}>
                     <Col
                       md={12}
@@ -213,77 +214,42 @@ const Post = ({ post, comment1, comment2, postComment, postScreen }) => {
                   </Row>
                 ))}
 
-              {!postScreen && comment1 && (
-                <Row className='align-items-center mb-2'>
-                  <Col
-                    md={12}
-                    className='px-0 text-left d-flex align-items-center'
-                  >
-                    <Image
-                      className=' mr-2'
-                      src={comment1 && comment1.avatar}
-                      style={{ width: '10%' }}
-                      fluid='true'
-                      roundedCircle
-                    />
-                    <div className='bg-body_tertiary p-2 px-4 rounded-pill d-flex flex-column  justify-content-center'>
-                      <h6
-                        className='mb-0 text-1 d-flex align-items-center'
-                        style={{ textTransform: 'capitalize' }}
+              {!postScreen &&
+                post.comments &&
+                post.comments
+                  .slice(commentCount - 2, commentCount)
+                  .map((comment) => (
+                    <Row className={`align-items-center mb-2`}>
+                      <Col
+                        md={12}
+                        className='px-0 text-left d-flex align-items-center'
                       >
-                        {comment1 && comment1.name} &nbsp;
-                        <span className='text-0 text-secodary font-weight-light my-auto'>
-                          -&nbsp;
-                          {moment(comment1 && comment1.commentdate).format(
-                            'Do MMMM,h:mm a'
-                          )}
-                        </span>
-                      </h6>
-                      <p className='mb-0 text-1'>
-                        {comment1 && comment1.commentText}
-                      </p>
-                    </div>
-                  </Col>
-                </Row>
-              )}
-
-              {!postScreen && comment2 && (
-                <Row
-                  className={`align-items-center ${
-                    commentCount > 2 ? 'mb-2' : 'mb-3'
-                  }`}
-                >
-                  <Col
-                    md={12}
-                    className='px-0 text-left d-flex align-items-center'
-                  >
-                    <Image
-                      className=' mr-2'
-                      src={comment2 && comment2.avatar}
-                      style={{ width: '10%' }}
-                      fluid='true'
-                      roundedCircle
-                    />
-                    <div className='bg-body_tertiary p-2 px-4 rounded-pill d-flex flex-column  justify-content-center'>
-                      <h6
-                        className='mb-0 text-1 d-flex align-items-center'
-                        style={{ textTransform: 'capitalize' }}
-                      >
-                        {comment2 && comment2.name} &nbsp;
-                        <span className='text-0 text-secodary font-weight-light my-auto'>
-                          -&nbsp;
-                          {moment(comment2 && comment2.commentdate).format(
-                            'Do MMMM,h:mm a'
-                          )}
-                        </span>
-                      </h6>
-                      <p className='mb-0 text-1'>
-                        {comment2 && comment2.commentText}
-                      </p>
-                    </div>
-                  </Col>
-                </Row>
-              )}
+                        <Image
+                          className=' mr-2'
+                          src={comment.avatar}
+                          alt={comment.user}
+                          style={{ width: '8%' }}
+                          fluid='true'
+                          roundedCircle
+                        />
+                        <div className='bg-body_tertiary p-2 px-4 rounded-pill d-flex flex-column  justify-content-center'>
+                          <h6
+                            className='mb-0 text-1 d-flex align-items-center'
+                            style={{ textTransform: 'capitalize' }}
+                          >
+                            {comment.name} &nbsp;
+                            <span className='text-0 text-secodary font-weight-light my-auto'>
+                              -&nbsp;
+                              {moment(comment && comment.commentdate).format(
+                                'Do MMMM,h:mm a'
+                              )}
+                            </span>
+                          </h6>
+                          <p className='mb-0 text-1'>{comment.commentText}</p>
+                        </div>
+                      </Col>
+                    </Row>
+                  ))}
 
               {!postScreen && commentCount > 2 && (
                 <Link to={`/post/${post._id}`}>

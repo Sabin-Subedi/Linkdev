@@ -6,7 +6,7 @@ import Post from './Post'
 import Message from './Message'
 import Loader from './Loader'
 
-const PostList = ({ history }) => {
+const PostList = () => {
   const postList = useSelector((state) => state.postList)
   const { loading, posts, error } = postList
 
@@ -15,15 +15,7 @@ const PostList = ({ history }) => {
   ) : loading ? (
     <Loader />
   ) : (
-    posts.map((post) => (
-      <Post
-        key={post._id}
-        post={post}
-        home={true}
-        comment1={post.comments[post.comments.length - 2]}
-        comment2={post.comments[post.comments.length - 1]}
-      />
-    ))
+    posts.map((post) => <Post key={post._id} post={post} home={true} />)
   )
 
   // return <Loader />

@@ -39,9 +39,7 @@ const PostScreen = ({ history, match }) => {
           ) : error ? (
             <Message>{error.message}</Message>
           ) : (
-            post && (
-              <Post post={post} postComment={post.comments} postScreen={true} />
-            )
+            post && <Post post={post} />
           )}
         </Col>
         <Col md={3}></Col>

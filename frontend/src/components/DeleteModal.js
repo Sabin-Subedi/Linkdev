@@ -10,8 +10,6 @@ export default function DeleteModal(props) {
   const { success } = deletedPost
 
   const deletePostHandler = () => {
-    // if (window.confirm('?')) {
-    // }
     dispatch(deletePostById(props.id))
     if (success) {
       props.onHide()
