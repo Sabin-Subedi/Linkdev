@@ -99,7 +99,7 @@ const HomeScreen = ({ history, location }) => {
               <PostCreater user={userInfo} history={history} />
               <PostList />
             </Col>
-            <Col md={3} className='pl-0 '>
+            <Col md={3} className='pl-0'>
               <h4>
                 <i className='fas fa-user mb-2'></i> Let's Connect
               </h4>
