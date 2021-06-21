@@ -18,7 +18,7 @@ const Footer = ({ background }) => {
             <LinkContainer to='/privacy' className='mx-2'>
               <span className='mx-1 cursor'>Privacy & Policy</span>
             </LinkContainer>
-            <a href='https://www.privacypolicygenerator.info/live.php?token=qbFZQf6waGDH7fnaNuByCaEBlRs1sZZG'>
+            <a href='https://www.privacypolicygenerator.info/live.php?'>
               <span className='mx-1 text-color_primary cursor'>
                 Give Feedback
               </span>
