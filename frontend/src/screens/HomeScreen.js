@@ -101,7 +101,7 @@ const HomeScreen = ({ history, location }) => {
             </Col>
             <Col md={3} className='pl-0'>
               <h4>
-                <i className='fas fa-user mb-2'></i> Let's Connect
+                <i className='fas fa-user mb-2'></i> Let's Connect {users.length}
               </h4>
               {loading && <Loader />}
               {error && <Message>{error}</Message>}
