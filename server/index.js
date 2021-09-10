@@ -19,7 +19,7 @@ connectDB();
 const csrfProtection = csrf({
   cookie: {
     secure: true,
-    httpOnly: true,
+    // httpOnly: true,
     maxAge: 3600, // 1-hour
   },
 });
@@ -40,6 +40,11 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(csrfProtection);
+
+app.get('/getCSRFTOKEN', csrfProtection, function (req, res) {
+
+  res.send({csrfToken: req.csrfToken() })
+})
 
 app.use(
   helmet.contentSecurityPolicy({

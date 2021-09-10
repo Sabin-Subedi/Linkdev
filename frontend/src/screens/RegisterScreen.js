@@ -8,6 +8,7 @@ import {
   InputGroup,
   Row,
 } from 'react-bootstrap'
+import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { LinkContainer } from 'react-router-bootstrap'
 import { Link } from 'react-router-dom'
@@ -17,6 +18,7 @@ import Message from '../components/Message'
 import Meta from '../components/Meta'
 
 const RegisterScreen = ({ history }) => {
+  const [cookies, setCookie] = useCookies();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [name, setName] = useState('')
@@ -40,7 +42,7 @@ const RegisterScreen = ({ history }) => {
     if (form.checkValidity() === false) {
       event.stopPropagation()
     } else {
-      dispatch(register(email, password, name, date))
+      dispatch(register(email, password, name, date,cookies['csrftoken']))
     }
 
     setValidated(true)

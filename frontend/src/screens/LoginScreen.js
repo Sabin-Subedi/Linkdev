@@ -21,16 +21,16 @@ const LoginScreen = ({ location, history }) => {
   const { error, userInfo } = userLogin
 
 
-
   useEffect(() => {
     if (userInfo) {
       history.push('/')
     }
+    
   }, [history, userInfo])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(login(email, password,cookies['XSRF-TOKEN']))
+    dispatch(login(email, password,cookies['csrftoken']))
   }
 
   return (

@@ -54,13 +54,14 @@ export const login = (email, password, token) => async (dispatch) => {
   }
 };
 
-export const register = (email, password, name, date) => async (dispatch) => {
+export const register = (email, password, name, date,token) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
 
     const config = {
       headers: {
         "Content-Type": "application/json",
+        "xsrf-token": token,
       },
     };
 
