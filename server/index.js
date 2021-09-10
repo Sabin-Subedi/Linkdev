@@ -21,6 +21,7 @@ const app = express();
 app.use(helmet.contentSecurityPolicy({
   useDefaults: true,
     directives: {
+      'script-src': ["'self'","'sha256-1kri9uKG6Gd9VbixGzyFE/kaQIHihYFdxFKKhgz3b80='"],
       "img-src": ["'self'","storage.googleapis.com"],
     },
   })
