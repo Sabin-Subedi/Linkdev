@@ -19,6 +19,14 @@ const app = express();
 
 app.use(cors())
 app.use(helmet());
+app.use(helmet.contentSecurityPolicy({
+  useDefaults: true,
+    directives: {
+      "script-src": ["'self'", "https://storage.googleapis.com/hello-de203.appspot.com"],
+      "style-src": null,
+    },
+  })
+)
 
 app.use(express.json());
 
