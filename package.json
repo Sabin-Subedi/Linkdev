@@ -9,7 +9,7 @@
     "server": "nodemon server/index",
     "client": "npm start --prefix frontend",
     "dev": "concurrently \"npm run server\" \"npm run client\" ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && INLINE_RUNTIME_CHUNK=false npm run build --prefix frontend"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && INLINE_RUNTIME_CHUNK=false --prefix frontend && npm run build --prefix frontend"
   },
   "author": "Sabin Subedi",
   "license": "MIT",
