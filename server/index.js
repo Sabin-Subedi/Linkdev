@@ -8,26 +8,51 @@ import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
 import cors from "cors";
 import helmet from "helmet";
-
-
+import csrf from "csurf";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
 // ! Connects DataBase
 connectDB();
 
+const csrfProtection = csrf({
+  cookie: {
+    secure: true,
+    httpOnly: true,
+    maxAge: 3600, // 1-hour
+  },
+});
+const parseForm = express.urlencoded({ extended: false });
+
 const app = express();
 
-// app.use(cors())
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 
-app.use(helmet.contentSecurityPolicy({
-  useDefaults: true,
+app.use(express.json());
+// app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+
+app.use(csrfProtection);
+
+app.use(
+  helmet.contentSecurityPolicy({
+    useDefaults: true,
     directives: {
-      'script-src': ["'self'","'sha256-1kri9uKG6Gd9VbixGzyFE/kaQIHihYFdxFKKhgz3b80='"],
-      "img-src": ["'self'","storage.googleapis.com"],
+      "script-src": [
+        "'self'",
+        "'sha256-1kri9uKG6Gd9VbixGzyFE/kaQIHihYFdxFKKhgz3b80='",
+      ],
+      "img-src": ["'self'", "storage.googleapis.com"],
     },
   })
-)
+);
 app.use(helmet.dnsPrefetchControl());
 app.use(helmet.expectCt());
 app.use(helmet.frameguard());
@@ -38,9 +63,6 @@ app.use(helmet.noSniff());
 app.use(helmet.permittedCrossDomainPolicies());
 app.use(helmet.referrerPolicy());
 app.use(helmet.xssFilter());
-
-
-app.use(express.json());
 
 app.use("/v1/auth/", authRoutes);
 app.use("/v1/", postRoutes);
@@ -62,7 +84,7 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   if (process.env.NODE_ENV === "development") {

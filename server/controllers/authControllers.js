@@ -13,6 +13,7 @@ export const authUser = async (req, res) => {
     const { email, password } = req.body
     const user = await User.findOne({ email })
 
+    console.log(req.body)
     if (user) {
       const matchPassword = await bcrypt.compare(password, user.password)
 

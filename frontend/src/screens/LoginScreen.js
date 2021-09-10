@@ -8,8 +8,10 @@ import { LinkContainer } from 'react-router-bootstrap'
 import Footer from '../components/Footer'
 import Message from '../components/Message'
 import Meta from '../components/Meta'
+import { useCookies } from 'react-cookie'
 
 const LoginScreen = ({ location, history }) => {
+  const [cookies, setCookie] = useCookies();
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
@@ -18,7 +20,7 @@ const LoginScreen = ({ location, history }) => {
   const userLogin = useSelector((state) => state.userLogin)
   const { error, userInfo } = userLogin
 
-  // const redirect = location.search ? location.search.split('?')[1] : '/'
+
 
   useEffect(() => {
     if (userInfo) {
@@ -28,7 +30,7 @@ const LoginScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(login(email, password))
+    dispatch(login(email, password,cookies['XSRF-TOKEN']))
   }
 
   return (

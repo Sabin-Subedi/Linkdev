@@ -15,31 +15,34 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
-} from '../constants/authConstant'
-import axios from 'axios'
+} from "../constants/authConstant";
+import axios from "axios";
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password, token) => async (dispatch) => {
   try {
-    dispatch({ type: USER_LOGIN_REQUEST })
+    dispatch({ type: USER_LOGIN_REQUEST });
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
+        "xsrf-token": token,
       },
-    }
+      withCredentials: true,
+
+    };
 
     const { data } = await axios.post(
-      '/v1/auth/login',
-      { email, password },
+      "/v1/auth/login",
+      { email, password, _csrf: token },
       config
-    )
+    );
 
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
-    })
+    });
 
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_LOGIN_FAIL,
@@ -47,32 +50,32 @@ export const login = (email, password) => async (dispatch) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const register = (email, password, name, date) => async (dispatch) => {
   try {
-    dispatch({ type: USER_REGISTER_REQUEST })
+    dispatch({ type: USER_REGISTER_REQUEST });
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-    }
+    };
 
     const { data } = await axios.post(
-      '/v1/auth/register',
+      "/v1/auth/register",
       { email, password, date, name },
       config
-    )
+    );
 
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,
-    })
+    });
 
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
@@ -80,36 +83,36 @@ export const register = (email, password, name, date) => async (dispatch) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const logout = () => async (dispatch) => {
-  dispatch({ type: USER_LOGOUT })
+  dispatch({ type: USER_LOGOUT });
 
-  localStorage.removeItem('userInfo')
-}
+  localStorage.removeItem("userInfo");
+};
 
 export const getEmail = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: PASSWORD_FORGET_REQUEST })
+    dispatch({ type: PASSWORD_FORGET_REQUEST });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
         authorization: `Bearer ${userInfo.token}`,
       },
-    }
+    };
 
-    const { data } = await axios.get('/v1/auth/verifyEmail', config)
+    const { data } = await axios.get("/v1/auth/verifyEmail", config);
 
     dispatch({
       type: PASSWORD_FORGET_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: PASSWORD_FORGET_FAIL,
@@ -117,30 +120,30 @@ export const getEmail = () => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const forgotEmail = (email) => async (dispatch, getState) => {
   try {
-    dispatch({ type: PASSWORD_FORGET_REQUEST })
+    dispatch({ type: PASSWORD_FORGET_REQUEST });
 
     const config = {
       headers: {
-        'Content-Type': `application/json`,
+        "Content-Type": `application/json`,
       },
-    }
+    };
 
     const { data } = await axios.post(
-      '/v1/auth/forgotPassword',
+      "/v1/auth/forgotPassword",
       { email },
       config
-    )
+    );
 
     dispatch({
       type: PASSWORD_FORGET_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: PASSWORD_FORGET_FAIL,
@@ -148,20 +151,20 @@ export const forgotEmail = (email) => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const verifyForgetToken = (token) => async (dispatch, getState) => {
   try {
-    dispatch({ type: TOKEN_VERIFY_REQUEST })
+    dispatch({ type: TOKEN_VERIFY_REQUEST });
 
-    const { data } = await axios.get(`/v1/auth/tokenVerify/${token}`)
+    const { data } = await axios.get(`/v1/auth/tokenVerify/${token}`);
 
     dispatch({
       type: TOKEN_VERIFY_SUCCESS,
       payload: data,
-    })
+    });
   } catch (error) {
     dispatch({
       type: TOKEN_VERIFY_FAIL,
@@ -169,31 +172,31 @@ export const verifyForgetToken = (token) => async (dispatch, getState) => {
         error.response && error.response.data.message
           ? error.response.data.message
           : error.message,
-    })
+    });
   }
-}
+};
 
 export const resetPassword =
   (token, password) => async (dispatch, getState) => {
     try {
-      dispatch({ type: RESET_PASSWORD_REQUEST })
+      dispatch({ type: RESET_PASSWORD_REQUEST });
 
       const config = {
         headers: {
-          'Content-Type': `application/json`,
+          "Content-Type": `application/json`,
         },
-      }
+      };
 
       const { data } = await axios.post(
         `/v1/auth/resetPassword/${token}`,
         { password },
         config
-      )
+      );
 
       dispatch({
         type: RESET_PASSWORD_SUCCESS,
         payload: data,
-      })
+      });
     } catch (error) {
       dispatch({
         type: RESET_PASSWORD_FAIL,
@@ -201,6 +204,6 @@ export const resetPassword =
           error.response && error.response.data.message
             ? error.response.data.message
             : error.message,
-      })
+      });
     }
-  }
+  };
