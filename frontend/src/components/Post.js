@@ -189,7 +189,33 @@ const Post = ({ post, postScreen, history }) => {
                   )}
                 </h5>
               ) : (
-                <h2 className="pl-2 my-1 ">{post.text}</h2>
+                <h2 className="pl-2 my-1 ">
+                  {post.text.includes("https://") ? (
+                    <>
+                      {post.text.split("https://")[0]}
+                      <a
+                        href={"https://" + post.text.split("https://")[1]}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {"https://" + post.text.split("https://")[1]}
+                      </a>
+                    </>
+                  ) : post.text.includes("http://") ? (
+                    <>
+                      {post.text.split("http://")[0]}
+                      <a
+                        href={"http://" + post.text.split("http://")[1]}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        {"http://" + post.text.split("http://")[1]}
+                      </a>
+                    </>
+                  ) : (
+                    post.text
+                  )}
+                </h2>
               )}
             </>
           )}
