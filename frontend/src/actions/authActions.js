@@ -17,10 +17,14 @@ import {
   RESET_PASSWORD_FAIL,
 } from "../constants/authConstant";
 import axios from "axios";
+import getCookie from "../constants/getCookie";
 
-export const login = (email, password, token) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
+
+    const token = getCookie('csrftoken')
+
 
     const config = {
       headers: {
@@ -107,6 +111,8 @@ export const getEmail = () => async (dispatch, getState) => {
         authorization: `Bearer ${userInfo.token}`,
       },
     };
+
+    console.log(document)
 
     const { data } = await axios.get("/v1/auth/verifyEmail", config);
 
