@@ -21,9 +21,7 @@ app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   useDefaults: true,
     directives: {
-
-      "img-src": ["self","https://storage.googleapis.com/hello-de203.appspot.com"],
-
+      imageSrc: ["'self'", 'data:', ' https://storage.googleapis.com/hello-de203.appspot.com'],
     },
   })
 )
