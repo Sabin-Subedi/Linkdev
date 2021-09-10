@@ -42,7 +42,7 @@ const RegisterScreen = ({ history }) => {
     if (form.checkValidity() === false) {
       event.stopPropagation()
     } else {
-      dispatch(register(email, password, name, date,cookies['csrftoken']))
+      dispatch(register(email, password, name))
     }
 
     setValidated(true)

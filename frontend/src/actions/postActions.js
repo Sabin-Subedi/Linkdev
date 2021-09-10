@@ -1,4 +1,5 @@
 import axios from 'axios'
+import getCookie from '../constants/getCookie'
 import {
   POST_BY_ID_FAIL,
   POST_BY_ID_REQUEST,
@@ -105,6 +106,8 @@ export const createPost = (text, image) => async (dispatch, getState) => {
   try {
     dispatch({ type: POST_CREATE_REQUEST })
 
+    const token = getCookie('csrftoken')
+
     const {
       userLogin: { userInfo },
     } = getState()
@@ -117,6 +120,7 @@ export const createPost = (text, image) => async (dispatch, getState) => {
       headers: {
         'Content-Type': 'application/json',
         authorization: `Bearer ${userInfo.token}`,
+        "xsrf-token": token,
       },
     }
 
