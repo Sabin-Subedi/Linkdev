@@ -7,6 +7,7 @@ import profileRoutes from './routes/profileRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 import path from 'path'
 import cors from 'cors'
+import helmet from 'helmet'
 // import { bucket } from './firebase.js'
 
 dotenv.config()
@@ -16,6 +17,7 @@ connectDB()
 
 const app = express()
 
+app.use(helmet())
 app.use(cors())
 
 app.use(express.json())
