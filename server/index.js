@@ -6,7 +6,7 @@ import postRoutes from "./routes/postRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
-
+import cors from "cors";
 import helmet from "helmet";
 
 
@@ -17,6 +17,8 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+app.use(cors())
 
 app.use(helmet.contentSecurityPolicy({
   useDefaults: true,
