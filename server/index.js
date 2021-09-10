@@ -6,10 +6,10 @@ import postRoutes from "./routes/postRoutes.js";
 import profileRoutes from "./routes/profileRoutes.js";
 import uploadRoutes from "./routes/uploadRoutes.js";
 import path from "path";
-import cors from "cors";
+
 import helmet from "helmet";
-import session from "cookie-session";
-// import { bucket } from './firebase.js'
+
+
 
 dotenv.config();
 
