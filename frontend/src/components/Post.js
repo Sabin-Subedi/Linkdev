@@ -128,12 +128,38 @@ const Post = ({ post, postScreen, history }) => {
 
           {post.postImage ? (
             <>
-              <p className="pl-2 my-1 text-2">{post.text}</p>
+              <p className="pl-2 my-1 ">
+                {post.text.includes("https://") ? (
+                  <>
+                    {post.text.split("https://")[0]}
+                    <a
+                      href={"https://" + post.text.split("https://")[1]}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {"https://" + post.text.split("https://")[1]}
+                    </a>
+                  </>
+                ) : post.text.includes("http://") ? (
+                  <>
+                    {post.text.split("http://")[0]}
+                    <a
+                      href={"http://" + post.text.split("http://")[1]}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {"http://" + post.text.split("http://")[1]}
+                    </a>
+                  </>
+                ) : (
+                  post.text
+                )}
+              </p>
+
               <Card.Img src={post.postImage} alt={post.name} fluid />
             </>
           ) : (
             <>
-              {console.log(post.text.split("https://")[0])}
               {post.text.length > 200 ? (
                 <h5 className="pl-2 my-1 ">
                   {post.text.includes("https://") ? (
@@ -144,7 +170,7 @@ const Post = ({ post, postScreen, history }) => {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {post.text.split("https://")[1]}
+                        {"https://" + post.text.split("https://")[1]}
                       </a>
                     </>
                   ) : post.text.includes("http://") ? (
@@ -155,7 +181,7 @@ const Post = ({ post, postScreen, history }) => {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        {post.text.split("http://")[1]}
+                        {"http://" + post.text.split("http://")[1]}
                       </a>
                     </>
                   ) : (
