@@ -15,6 +15,9 @@ import {
   RESET_PASSWORD_REQUEST,
   RESET_PASSWORD_SUCCESS,
   RESET_PASSWORD_FAIL,
+  USER_VERIFY_REQUEST,
+  USER_VERIFY_SUCCESS,
+  USER_VERIFY_FAIL,
 } from "../constants/authConstant";
 import axios from "axios";
 import getCookie from "../constants/getCookie";
@@ -23,8 +26,7 @@ export const login = (email, password) => async (dispatch) => {
   try {
     dispatch({ type: USER_LOGIN_REQUEST });
 
-    const token = getCookie('csrftoken')
-
+    const token = getCookie("csrftoken");
 
     const config = {
       headers: {
@@ -32,7 +34,6 @@ export const login = (email, password) => async (dispatch) => {
         "xsrf-token": token,
       },
       withCredentials: true,
-
     };
 
     const { data } = await axios.post(
@@ -62,7 +63,7 @@ export const register = (email, password, name, date) => async (dispatch) => {
   try {
     dispatch({ type: USER_REGISTER_REQUEST });
 
-    const token = getCookie('csrftoken')
+    const token = getCookie("csrftoken");
 
     const config = {
       headers: {
@@ -102,7 +103,7 @@ export const logout = () => async (dispatch) => {
 
 export const getEmail = () => async (dispatch, getState) => {
   try {
-    dispatch({ type: PASSWORD_FORGET_REQUEST });
+    dispatch({ type: USER_VERIFY_REQUEST });
 
     const {
       userLogin: { userInfo },
@@ -114,17 +115,15 @@ export const getEmail = () => async (dispatch, getState) => {
       },
     };
 
-    console.log(document)
-
     const { data } = await axios.get("/v1/auth/verifyEmail", config);
 
     dispatch({
-      type: PASSWORD_FORGET_SUCCESS,
+      type: USER_VERIFY_SUCCESS,
       payload: data,
     });
   } catch (error) {
     dispatch({
-      type: PASSWORD_FORGET_FAIL,
+      type: USER_VERIFY_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
@@ -136,10 +135,12 @@ export const getEmail = () => async (dispatch, getState) => {
 export const forgotEmail = (email) => async (dispatch, getState) => {
   try {
     dispatch({ type: PASSWORD_FORGET_REQUEST });
+    const token = getCookie("csrftoken");
 
     const config = {
       headers: {
-        "Content-Type": `application/json`,
+        "Content-Type": "application/json",
+        "xsrf-token": token,
       },
     };
 
@@ -190,9 +191,12 @@ export const resetPassword =
     try {
       dispatch({ type: RESET_PASSWORD_REQUEST });
 
+      const csrf = getCookie("csrftoken");
+
       const config = {
         headers: {
-          "Content-Type": `application/json`,
+          "Content-Type": "application/json",
+          "xsrf-token": csrf,
         },
       };
 

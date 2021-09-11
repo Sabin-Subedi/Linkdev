@@ -10,6 +10,7 @@ import {
   UPDATE_PROFILE_SUCCESS,
 } from '../constants/profileConstants'
 import axios from 'axios'
+import getCookie from '../constants/getCookie'
 
 export const getProfileDetail = (userId) => async (dispatch, getState) => {
   try {
@@ -49,10 +50,15 @@ export const updateProfile =
         userLogin: { userInfo },
       } = getState()
 
+      const token = getCookie('csrftoken')
+
+   
+
       const config = {
         headers: {
           'Cotent-Type': 'application/json',
           authorization: `Bearer ${userInfo.token}`,
+          "xsrf-token": token,
         },
       }
 
@@ -82,10 +88,15 @@ export const updateProfileAvatar = (avatar) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
+    const token = getCookie('csrftoken')
+
+   
+
     const config = {
       headers: {
         'Cotent-Type': 'application/json',
         authorization: `Bearer ${userInfo.token}`,
+        "xsrf-token": token,
       },
     }
 
