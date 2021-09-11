@@ -66,18 +66,21 @@ function ProfileAvatarModal(props) {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        {uploading && (
+        {uploading ? (
           <>
             <Loader />{" "}
             <h4 className="text-primary text-center mt-5">
               Uploading Your Image....
             </h4>
           </>
+        ) : (
+          <Image
+            src={
+              avatar ? avatar : profile && profile.user && profile.user.avatar
+            }
+            fluid
+          />
         )}
-        <Image
-          src={avatar ? avatar : profile && profile.user && profile.user.avatar}
-          fluid
-        />
         <Form onSubmit={submitHandler}>
           <Form.Group controlId="email">
             <Form.File
