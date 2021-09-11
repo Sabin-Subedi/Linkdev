@@ -72,6 +72,8 @@ export const register = (email, password, name, date) => async (dispatch) => {
       },
     };
 
+  
+
     const { data } = await axios.post(
       "/v1/auth/register",
       { email, password, date, name },
