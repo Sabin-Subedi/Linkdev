@@ -1,26 +1,25 @@
-import jwt, { decode } from 'jsonwebtoken'
-import User from '../models/userModels.js'
+import jwt, { decode } from "jsonwebtoken";
+import User from "../models/userModels.js";
 
 export const protect = async (req, res, next) => {
-  let token
+  let token;
 
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer')
+    req.headers.authorization.startsWith("Bearer")
   ) {
     try {
-      token = req.headers.authorization.split(' ')[1]
-      const decoded = jwt.decode(token)
+      token = req.headers.authorization.split(" ")[1];
+      const decoded = jwt.decode(token);
 
-      req.user = await User.findById(decoded.id).select('-password')
+      req.user = await User.findById(decoded.id).select("-password");
 
-      next()
+      next();
     } catch (error) {
-   
-      res.status(401)
-      throw new Error('Not authorized token failed')
+      res.status(401);
+      console.error(error);
     }
   } else {
-    res.status(404).json({ message: 'Not authorized' })
+    res.status(404).json({ message: "Not authorized" });
   }
-}
+};

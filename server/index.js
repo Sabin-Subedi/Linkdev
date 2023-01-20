@@ -11,7 +11,9 @@ import helmet from "helmet";
 import csrf from "csurf";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
+dotenv.config({
+  path: "../.env",
+});
 
 // ! Connects DataBase
 connectDB();
@@ -27,24 +29,14 @@ const parseForm = express.urlencoded({ extended: false });
 
 const app = express();
 
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
-
 app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-app.use(csrfProtection);
-
-app.get('/getCSRFTOKEN', csrfProtection, function (req, res) {
-
-  res.send({csrfToken: req.csrfToken() })
-})
+app.get("/getCSRFTOKEN", csrfProtection, function (req, res) {
+  res.send({ csrfToken: req.csrfToken() });
+});
 
 app.use(
   helmet.contentSecurityPolicy({
